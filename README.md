@@ -1,2 +1,2 @@
-# SUNLearn-A
-SUNLearn Android 3.3.1
+# SUNLearn-I
+SUNLearn iOS 1.2.0

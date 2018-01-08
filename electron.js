@@ -9,7 +9,7 @@ const os = require('os');
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow,
-    appName = 'Moodle Desktop', // Default value.
+    appName = 'SUNLearn', // Default value.
     isReady = false,
     configRead = false;
 
@@ -53,6 +53,10 @@ function createWindow() {
     mainWindow.on('closed', () => {
         // Dereference the window object.
         mainWindow = null
+    });
+
+    mainWindow.on('focus', () => {
+        mainWindow.webContents.send('mmAppFocused'); // Send an event to the main window.
     });
 }
 
