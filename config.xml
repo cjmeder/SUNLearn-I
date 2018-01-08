@@ -3,16 +3,16 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.moodle.sunlearn"
-        versionCode = "20190"
+        versionCode = "2017"
         version   = "1.1">
-    <name>SUNLearn Mobile</name>
+    <name>SUNLearn</name>
 
     <description>
-        SUNLearn Mobile official app
+        SUNLearn official app
     </description>
 
-    <author href="http://learn.sun.ac.za.com" email="learn@sun.ac.za">
-        IT LTS Development Team
+    <author href="http://learn.sun.ac.za" email="learn@sun.ac.za">
+        SUNLearn Development team
     </author>
 
     <gap:config-file platform="ios" parent="CFBundleShortVersionString">
