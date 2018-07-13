@@ -9,7 +9,7 @@ const os = require('os');
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow,
-    appName = 'SUNLearn', // Default value.
+    appName = 'SUNLearn Desktop', // Default value.
     isReady = false,
     configRead = false;
 
