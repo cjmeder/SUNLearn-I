@@ -1,6 +1,6 @@
 webpackJsonp([74],{
 
-/***/ 1815:
+/***/ 2005:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10,858 +10,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var core = __webpack_require__(0);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/index.js + 3 modules
-var ionic_angular = __webpack_require__(9);
+var ionic_angular = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./node_modules/@ngx-translate/core/index.js + 1 modules
-var _ngx_translate_core = __webpack_require__(5);
+var _ngx_translate_core = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./src/components/components.module.ts
-var components_module = __webpack_require__(32);
+var components_module = __webpack_require__(25);
 
 // EXTERNAL MODULE: ./src/directives/directives.module.ts + 2 modules
-var directives_module = __webpack_require__(28);
+var directives_module = __webpack_require__(29);
+
+// EXTERNAL MODULE: ./node_modules/@angular/forms/esm5/forms.js
+var esm5_forms = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./src/providers/events.ts
-var events = __webpack_require__(12);
+var events = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./src/providers/sites.ts
 var sites = __webpack_require__(1);
 
 // EXTERNAL MODULE: ./src/providers/sync.ts
-var sync = __webpack_require__(83);
+var sync = __webpack_require__(79);
+
+// EXTERNAL MODULE: ./src/providers/file-session.ts
+var file_session = __webpack_require__(167);
 
 // EXTERNAL MODULE: ./src/providers/utils/dom.ts
-var dom = __webpack_require__(3);
+var dom = __webpack_require__(4);
 
-// EXTERNAL MODULE: ./src/providers/utils/time.ts
-var time = __webpack_require__(42);
+// EXTERNAL MODULE: ./src/providers/utils/text.ts
+var utils_text = __webpack_require__(10);
 
-// EXTERNAL MODULE: ./src/addon/mod/scorm/providers/scorm.ts
-var providers_scorm = __webpack_require__(183);
+// EXTERNAL MODULE: ./src/core/fileuploader/providers/fileuploader.ts
+var fileuploader = __webpack_require__(67);
 
-// EXTERNAL MODULE: ./src/addon/mod/scorm/providers/helper.ts
-var helper = __webpack_require__(337);
+// EXTERNAL MODULE: ./src/addon/mod/workshop/providers/workshop.ts
+var workshop = __webpack_require__(166);
 
-// EXTERNAL MODULE: ./src/addon/mod/scorm/providers/scorm-sync.ts
-var scorm_sync = __webpack_require__(276);
+// EXTERNAL MODULE: ./src/addon/mod/workshop/providers/helper.ts
+var helper = __webpack_require__(192);
 
-// CONCATENATED MODULE: ./src/addon/mod/scorm/classes/data-model-12.ts
-// (C) Copyright 2015 Martin Dougiamas
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// EXTERNAL MODULE: ./src/addon/mod/workshop/providers/offline.ts
+var offline = __webpack_require__(175);
 
-/**
- * SCORM data model implementation for version 1.2.
- */
-var data_model_12_AddonModScormDataModel12 = /** @class */ (function () {
-    /**
-     * Constructor.
-     *
-     * @param {CoreEventsProvider} eventsProvider Events provider instance.
-     * @param {AddonModScormProvider} scormProvider SCORM provider instance.
-     * @param {any} scorm SCORM.
-     * @param {number} scoId Current SCO ID.
-     * @param {number} attempt Attempt number.
-     * @param {any} userData The user default data.
-     * @param {string} [mode] Mode being played. By default, MODENORMAL.
-     * @param {boolean} offline Whether the attempt is offline.
-     */
-    function AddonModScormDataModel12(eventsProvider, scormProvider, siteId, scorm, scoId, attempt, userData, mode, offline) {
-        this.eventsProvider = eventsProvider;
-        this.scormProvider = scormProvider;
-        this.siteId = siteId;
-        this.scorm = scorm;
-        this.scoId = scoId;
-        this.attempt = attempt;
-        this.mode = mode;
-        this.offline = offline;
-        // Standard Data Type Definition.
-        this.CMI_STRING_256 = '^[\\u0000-\\uFFFF]{0,255}$';
-        this.CMI_STRING_4096 = '^[\\u0000-\\uFFFF]{0,4096}$';
-        this.CMI_TIME = '^([0-2]{1}[0-9]{1}):([0-5]{1}[0-9]{1}):([0-5]{1}[0-9]{1})(\.[0-9]{1,2})?$';
-        this.CMI_TIMESPAN = '^([0-9]{2,4}):([0-9]{2}):([0-9]{2})(\.[0-9]{1,2})?$';
-        this.CMI_INTEGER = '^\\d+$';
-        this.CMI_SINTEGER = '^-?([0-9]+)$';
-        this.CMI_DECIMAL = '^-?([0-9]{0,3})(\.[0-9]*)?$';
-        this.CMI_IDENTIFIER = '^[\\u0021-\\u007E]{0,255}$';
-        this.CMI_FEEDBACK = this.CMI_STRING_256; // This must be redefined.
-        this.CMI_INDEX = '[._](\\d+).';
-        // Vocabulary Data Type Definition.
-        this.CMI_STATUS = '^passed$|^completed$|^failed$|^incomplete$|^browsed$';
-        this.CMI_STATUS_2 = '^passed$|^completed$|^failed$|^incomplete$|^browsed$|^not attempted$';
-        this.CMI_EXIT = '^time-out$|^suspend$|^logout$|^$';
-        this.CMI_TYPE = '^true-false$|^choice$|^fill-in$|^matching$|^performance$|^sequencing$|^likert$|^numeric$';
-        this.CMI_RESULT = '^correct$|^wrong$|^unanticipated$|^neutral$|^([0-9]{0,3})?(\.[0-9]*)?$';
-        this.NAV_EVENT = '^previous$|^continue$';
-        // Children lists.
-        this.CMI_CHILDREN = 'core,suspend_data,launch_data,comments,objectives,student_data,student_preference,interactions';
-        this.CORE_CHILDREN = 'student_id,student_name,lesson_location,credit,lesson_status,entry,score,total_time,lesson_mode,' +
-            'exit,session_time';
-        this.SCORE_CHILDREN = 'raw,min,max';
-        this.COMMENTS_CHILDREN = 'content,location,time';
-        this.OBJECTIVES_CHILDREN = 'id,score,status';
-        this.CORRECT_RESPONSES_CHILDREN = 'pattern';
-        this.STUDENT_DATA_CHILDREN = 'mastery_score,max_time_allowed,time_limit_action';
-        this.STUDENT_PREFERENCE_CHILDREN = 'audio,language,speed,text';
-        this.INTERACTIONS_CHILDREN = 'id,objectives,time,type,correct_responses,weighting,student_response,result,latency';
-        // Data ranges.
-        this.SCORE_RANGE = '0#100';
-        this.AUDIO_RANGE = '-1#100';
-        this.SPEED_RANGE = '-100#100';
-        this.WEIGHTING_RANGE = '-100#100';
-        this.TEXT_RANGE = '-1#1';
-        // Error messages.
-        this.ERROR_STRINGS = {
-            0: 'No error',
-            101: 'General exception',
-            201: 'Invalid argument error',
-            202: 'Element cannot have children',
-            203: 'Element not an array - cannot have count',
-            301: 'Not initialized',
-            401: 'Not implemented error',
-            402: 'Invalid set value, element is a keyword',
-            403: 'Element is read only',
-            404: 'Element is write only',
-            405: 'Incorrect data type'
-        };
-        this.currentUserData = {}; // Current user data.
-        this.def = {}; // Object containing the default values.
-        this.defExtra = {}; // Extra object that will contain the objectives and interactions data (all the .n. elements).
-        this.dataModel = {}; // The SCORM 1.2 data model.
-        this.initialized = false; // Whether LMSInitialize has been called.
-        this.mode = mode || providers_scorm["a" /* AddonModScormProvider */].MODENORMAL;
-        this.offline = !!offline;
-        this.init(userData);
-    }
-    /**
-     * Utility function for adding two times in format hh:mm:ss.
-     *
-     * @param {string} first  First time.
-     * @param {string} second Second time.
-     * @return {string} Total time.
-     */
-    AddonModScormDataModel12.prototype.addTime = function (first, second) {
-        var sFirst = first.split(':'), sSecond = second.split(':'), cFirst = sFirst[2].split('.'), cSecond = sSecond[2].split('.');
-        var change = 0;
-        var firstCents = 0; // Cents.
-        if (cFirst.length > 1) {
-            firstCents = parseInt(cFirst[1], 10);
-        }
-        var secondCents = 0;
-        if (cSecond.length > 1) {
-            secondCents = parseInt(cSecond[1], 10);
-        }
-        var cents = firstCents + secondCents;
-        change = Math.floor(cents / 100);
-        cents = cents - (change * 100);
-        if (Math.floor(cents) < 10) {
-            cents = '0' + cents.toString();
-        }
-        var secs = parseInt(cFirst[0], 10) + parseInt(cSecond[0], 10) + change; // Seconds.
-        change = Math.floor(secs / 60);
-        secs = secs - (change * 60);
-        if (Math.floor(secs) < 10) {
-            secs = '0' + secs.toString();
-        }
-        var mins = parseInt(sFirst[1], 10) + parseInt(sSecond[1], 10) + change; // Minutes.
-        change = Math.floor(mins / 60);
-        mins = mins - (change * 60);
-        if (mins < 10) {
-            mins = '0' + mins.toString();
-        }
-        var hours = parseInt(sFirst[0], 10) + parseInt(sSecond[0], 10) + change; // Hours.
-        if (hours < 10) {
-            hours = '0' + hours.toString();
-        }
-        if (cents != '0') {
-            return hours + ':' + mins + ':' + secs + '.' + cents;
-        }
-        else {
-            return hours + ':' + mins + ':' + secs;
-        }
-    };
-    /**
-     * Utility function for cloning an object
-     *
-     * @param {any} obj The object to be cloned
-     * @return {any} The object cloned
-     */
-    AddonModScormDataModel12.prototype.cloneObj = function (obj) {
-        if (obj == null || typeof (obj) != 'object') {
-            return obj;
-        }
-        var temp = new obj.constructor(); // Changed (twice).
-        for (var key in obj) {
-            temp[key] = this.cloneObj(obj[key]);
-        }
-        return temp;
-    };
-    /**
-     * Collect all the user tracking data that must be persisted in the system, this is usually called by LMSCommit().
-     *
-     * @return {any[]} Collected data.
-     */
-    AddonModScormDataModel12.prototype.collectData = function () {
-        var data = [];
-        for (var element in this.currentUserData[this.scoId]) {
-            // Ommit for example the nav. elements.
-            if (element.substr(0, 3) == 'cmi') {
-                var expression = new RegExp(this.CMI_INDEX, 'g');
-                // Get the generic name for this element (e.g. convert 'cmi.interactions.1.id' to 'cmi.interactions.n.id')
-                var elementModel = String(element).replace(expression, '.n.');
-                // Ignore the session time element.
-                if (element != 'cmi.core.session_time') {
-                    // Check if this specific element is not defined in the datamodel, but the generic element name is.
-                    if (typeof this.dataModel[this.scoId][element] == 'undefined' &&
-                        typeof this.dataModel[this.scoId][elementModel] != 'undefined') {
-                        // Add this element to the data model (by cloning the generic element) so we can track changes to it.
-                        this.dataModel[this.scoId][element] = this.cloneObj(this.dataModel[this.scoId][elementModel]);
-                    }
-                    // Check if the current element exists in the datamodel.
-                    if (typeof this.dataModel[this.scoId][element] != 'undefined') {
-                        // Make sure this is not a read only element.
-                        if (this.dataModel[this.scoId][element].mod != 'r') {
-                            var el = {
-                                // Moodle stores the organizations and interactions using _n. instead .n.
-                                element: element.replace(expression, '_$1.'),
-                                value: this.getEl(element)
-                            };
-                            // Check if the element has a default value.
-                            if (typeof this.dataModel[this.scoId][element].defaultvalue != 'undefined') {
-                                // Check if the default value is different from the current value.
-                                if (this.dataModel[this.scoId][element].defaultvalue != el.value ||
-                                    typeof this.dataModel[this.scoId][element].defaultvalue != typeof (el.value)) {
-                                    data.push(el);
-                                    // Update the element default to reflect the current committed value.
-                                    this.dataModel[this.scoId][element].defaultvalue = el.value;
-                                }
-                            }
-                            else {
-                                data.push(el);
-                                // No default value for the element, so set it now.
-                                this.dataModel[this.scoId][element].defaultvalue = el.value;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return data;
-    };
-    /**
-     * Get the value of the given element from the non-persistent (current) user data.
-     *
-     * @param {string} el The element
-     * @return {any} The element value
-     */
-    AddonModScormDataModel12.prototype.getEl = function (el) {
-        if (typeof this.currentUserData[this.scoId] != 'undefined' && typeof this.currentUserData[this.scoId][el] != 'undefined') {
-            return this.currentUserData[this.scoId][el];
-        }
-        return '';
-    };
-    /**
-     * Initialize the model.
-     *
-     * @param {any} userData The user default data.
-     */
-    AddonModScormDataModel12.prototype.init = function (userData) {
-        // Prepare the definition array containing the default values.
-        for (var scoId in userData) {
-            var sco = userData[scoId];
-            this.def[scoId] = sco.defaultdata;
-            this.defExtra[scoId] = sco.userdata;
-        }
-        // Set up data model for each SCO.
-        for (var scoId in this.def) {
-            this.dataModel[scoId] = {
-                'cmi._children': { defaultvalue: this.CMI_CHILDREN, mod: 'r', writeerror: '402' },
-                'cmi._version': { defaultvalue: '3.4', mod: 'r', writeerror: '402' },
-                'cmi.core._children': { defaultvalue: this.CORE_CHILDREN, mod: 'r', writeerror: '402' },
-                'cmi.core.student_id': { defaultvalue: this.def[scoId]['cmi.core.student_id'], mod: 'r', writeerror: '403' },
-                'cmi.core.student_name': { defaultvalue: this.def[scoId]['cmi.core.student_name'], mod: 'r', writeerror: '403' },
-                'cmi.core.lesson_location': { defaultvalue: this.def[scoId]['cmi.core.lesson_location'],
-                    format: this.CMI_STRING_256, mod: 'rw', writeerror: '405' },
-                'cmi.core.credit': { defaultvalue: this.def[scoId]['cmi.core.credit'], mod: 'r', writeerror: '403' },
-                'cmi.core.lesson_status': { defaultvalue: this.def[scoId]['cmi.core.lesson_status'], format: this.CMI_STATUS,
-                    mod: 'rw', writeerror: '405' },
-                'cmi.core.entry': { defaultvalue: this.def[scoId]['cmi.core.entry'], mod: 'r', writeerror: '403' },
-                'cmi.core.score._children': { defaultvalue: this.SCORE_CHILDREN, mod: 'r', writeerror: '402' },
-                'cmi.core.score.raw': { defaultvalue: this.def[scoId]['cmi.core.score.raw'], format: this.CMI_DECIMAL,
-                    range: this.SCORE_RANGE, mod: 'rw', writeerror: '405' },
-                'cmi.core.score.max': { defaultvalue: this.def[scoId]['cmi.core.score.max'], format: this.CMI_DECIMAL,
-                    range: this.SCORE_RANGE, mod: 'rw', writeerror: '405' },
-                'cmi.core.score.min': { defaultvalue: this.def[scoId]['cmi.core.score.min'], format: this.CMI_DECIMAL,
-                    range: this.SCORE_RANGE, mod: 'rw', writeerror: '405' },
-                'cmi.core.total_time': { defaultvalue: this.def[scoId]['cmi.core.total_time'], mod: 'r', writeerror: '403' },
-                'cmi.core.lesson_mode': { defaultvalue: this.def[scoId]['cmi.core.lesson_mode'], mod: 'r', writeerror: '403' },
-                'cmi.core.exit': { defaultvalue: this.def[scoId]['cmi.core.exit'], format: this.CMI_EXIT, mod: 'w',
-                    readerror: '404', writeerror: '405' },
-                'cmi.core.session_time': { format: this.CMI_TIMESPAN, mod: 'w', defaultvalue: '00:00:00', readerror: '404',
-                    writeerror: '405' },
-                'cmi.suspend_data': { defaultvalue: this.def[scoId]['cmi.suspend_data'], format: this.CMI_STRING_4096,
-                    mod: 'rw', writeerror: '405' },
-                'cmi.launch_data': { defaultvalue: this.def[scoId]['cmi.launch_data'], mod: 'r', writeerror: '403' },
-                'cmi.comments': { defaultvalue: this.def[scoId]['cmi.comments'], format: this.CMI_STRING_4096, mod: 'rw',
-                    writeerror: '405' },
-                // Deprecated evaluation attributes.
-                'cmi.evaluation.comments._count': { defaultvalue: '0', mod: 'r', writeerror: '402' },
-                'cmi.evaluation.comments._children': { defaultvalue: this.COMMENTS_CHILDREN, mod: 'r', writeerror: '402' },
-                'cmi.evaluation.comments.n.content': { defaultvalue: '', pattern: this.CMI_INDEX, format: this.CMI_STRING_256,
-                    mod: 'rw', writeerror: '405' },
-                'cmi.evaluation.comments.n.location': { defaultvalue: '', pattern: this.CMI_INDEX, format: this.CMI_STRING_256,
-                    mod: 'rw', writeerror: '405' },
-                'cmi.evaluation.comments.n.time': { defaultvalue: '', pattern: this.CMI_INDEX, format: this.CMI_TIME,
-                    mod: 'rw', writeerror: '405' },
-                'cmi.comments_from_lms': { mod: 'r', writeerror: '403' },
-                'cmi.objectives._children': { defaultvalue: this.OBJECTIVES_CHILDREN, mod: 'r', writeerror: '402' },
-                'cmi.objectives._count': { mod: 'r', defaultvalue: '0', writeerror: '402' },
-                'cmi.objectives.n.id': { pattern: this.CMI_INDEX, format: this.CMI_IDENTIFIER, mod: 'rw', writeerror: '405' },
-                'cmi.objectives.n.score._children': { pattern: this.CMI_INDEX, mod: 'r', writeerror: '402' },
-                'cmi.objectives.n.score.raw': { defaultvalue: '', pattern: this.CMI_INDEX, format: this.CMI_DECIMAL,
-                    range: this.SCORE_RANGE, mod: 'rw', writeerror: '405' },
-                'cmi.objectives.n.score.min': { defaultvalue: '', pattern: this.CMI_INDEX, format: this.CMI_DECIMAL,
-                    range: this.SCORE_RANGE, mod: 'rw', writeerror: '405' },
-                'cmi.objectives.n.score.max': { defaultvalue: '', pattern: this.CMI_INDEX, format: this.CMI_DECIMAL,
-                    range: this.SCORE_RANGE, mod: 'rw', writeerror: '405' },
-                'cmi.objectives.n.status': { pattern: this.CMI_INDEX, format: this.CMI_STATUS_2, mod: 'rw', writeerror: '405' },
-                'cmi.student_data._children': { defaultvalue: this.STUDENT_DATA_CHILDREN, mod: 'r', writeerror: '402' },
-                'cmi.student_data.mastery_score': { defaultvalue: this.def[scoId]['cmi.student_data.mastery_score'], mod: 'r',
-                    writeerror: '403' },
-                'cmi.student_data.max_time_allowed': { defaultvalue: this.def[scoId]['cmi.student_data.max_time_allowed'],
-                    mod: 'r', writeerror: '403' },
-                'cmi.student_data.time_limit_action': { defaultvalue: this.def[scoId]['cmi.student_data.time_limit_action'],
-                    mod: 'r', writeerror: '403' },
-                'cmi.student_preference._children': { defaultvalue: this.STUDENT_PREFERENCE_CHILDREN, mod: 'r',
-                    writeerror: '402' },
-                'cmi.student_preference.audio': { defaultvalue: this.def[scoId]['cmi.student_preference.audio'],
-                    format: this.CMI_SINTEGER, range: this.AUDIO_RANGE, mod: 'rw', writeerror: '405' },
-                'cmi.student_preference.language': { defaultvalue: this.def[scoId]['cmi.student_preference.language'],
-                    format: this.CMI_STRING_256, mod: 'rw', writeerror: '405' },
-                'cmi.student_preference.speed': { defaultvalue: this.def[scoId]['cmi.student_preference.speed'],
-                    format: this.CMI_SINTEGER, range: this.SPEED_RANGE, mod: 'rw', writeerror: '405' },
-                'cmi.student_preference.text': { defaultvalue: this.def[scoId]['cmi.student_preference.text'],
-                    format: this.CMI_SINTEGER, range: this.TEXT_RANGE, mod: 'rw', writeerror: '405' },
-                'cmi.interactions._children': { defaultvalue: this.INTERACTIONS_CHILDREN, mod: 'r', writeerror: '402' },
-                'cmi.interactions._count': { mod: 'r', defaultvalue: '0', writeerror: '402' },
-                'cmi.interactions.n.id': { pattern: this.CMI_INDEX, format: this.CMI_IDENTIFIER, mod: 'w', readerror: '404',
-                    writeerror: '405' },
-                'cmi.interactions.n.objectives._count': { pattern: this.CMI_INDEX, mod: 'r', defaultvalue: '0', writeerror: '402' },
-                'cmi.interactions.n.objectives.n.id': { pattern: this.CMI_INDEX, format: this.CMI_IDENTIFIER, mod: 'w',
-                    readerror: '404', writeerror: '405' },
-                'cmi.interactions.n.time': { pattern: this.CMI_INDEX, format: this.CMI_TIME, mod: 'w', readerror: '404',
-                    writeerror: '405' },
-                'cmi.interactions.n.type': { pattern: this.CMI_INDEX, format: this.CMI_TYPE, mod: 'w', readerror: '404',
-                    writeerror: '405' },
-                'cmi.interactions.n.correct_responses._count': { pattern: this.CMI_INDEX, mod: 'r', defaultvalue: '0',
-                    writeerror: '402' },
-                'cmi.interactions.n.correct_responses.n.pattern': { pattern: this.CMI_INDEX, format: this.CMI_FEEDBACK,
-                    mod: 'w', readerror: '404', writeerror: '405' },
-                'cmi.interactions.n.weighting': { pattern: this.CMI_INDEX, format: this.CMI_DECIMAL,
-                    range: this.WEIGHTING_RANGE, mod: 'w', readerror: '404', writeerror: '405' },
-                'cmi.interactions.n.student_response': { pattern: this.CMI_INDEX, format: this.CMI_FEEDBACK, mod: 'w',
-                    readerror: '404', writeerror: '405' },
-                'cmi.interactions.n.result': { pattern: this.CMI_INDEX, format: this.CMI_RESULT, mod: 'w', readerror: '404',
-                    writeerror: '405' },
-                'cmi.interactions.n.latency': { pattern: this.CMI_INDEX, format: this.CMI_TIMESPAN, mod: 'w',
-                    readerror: '404', writeerror: '405' },
-                'nav.event': { defaultvalue: '', format: this.NAV_EVENT, mod: 'w', readerror: '404', writeerror: '405' }
-            };
-            this.currentUserData[scoId] = {};
-            // Load default values.
-            for (var element in this.dataModel[scoId]) {
-                if (element.match(/\.n\./) === null) {
-                    if (typeof this.dataModel[scoId][element].defaultvalue != 'undefined') {
-                        this.currentUserData[scoId][element] = this.dataModel[scoId][element].defaultvalue;
-                    }
-                }
-            }
-            // Load initial user data for current SCO.
-            for (var element in this.def[scoId]) {
-                if (element.match(/\.n\./) === null) {
-                    if (typeof this.dataModel[scoId][element].defaultvalue != 'undefined') {
-                        this.currentUserData[scoId][element] = this.dataModel[scoId][element].defaultvalue;
-                    }
-                    else if (typeof this.defExtra[scoId][element] != 'undefined') {
-                        // Check in user data values.
-                        this.currentUserData[scoId][element] = this.defExtra[scoId][element];
-                    }
-                    else {
-                        this.currentUserData[scoId][element] = '';
-                    }
-                }
-            }
-            // Load interactions and objectives, and init the counters.
-            var expression = new RegExp(this.CMI_INDEX, 'g');
-            for (var element in this.defExtra[scoId]) {
-                var counterElement = '', currentCounterIndex = 0, elementDotFormat = void 0, currentN = void 0;
-                // This check for an indexed element. cmi.objectives.1.id or cmi.objectives_1.id.
-                if (element.match(expression)) {
-                    // Normalize to the expected value according the standard.
-                    // Moodle stores this values using _n. instead .n.
-                    elementDotFormat = element.replace(expression, '.$1.');
-                    this.currentUserData[scoId][elementDotFormat] = this.defExtra[scoId][element];
-                    // Get the correct counter and current index.
-                    if (elementDotFormat.indexOf('cmi.evaluation.comments') === 0) {
-                        counterElement = 'cmi.evaluation.comments._count';
-                        currentCounterIndex = elementDotFormat.match(/.(\d+)./)[1];
-                    }
-                    else if (elementDotFormat.indexOf('cmi.objectives') === 0) {
-                        counterElement = 'cmi.objectives._count';
-                        currentCounterIndex = elementDotFormat.match(/.(\d+)./)[1];
-                    }
-                    else if (elementDotFormat.indexOf('cmi.interactions') === 0) {
-                        if (elementDotFormat.indexOf('.objectives.') > 0) {
-                            currentN = elementDotFormat.match(/cmi.interactions.(\d+)./)[1];
-                            currentCounterIndex = elementDotFormat.match(/objectives.(\d+)./)[1];
-                            counterElement = 'cmi.interactions.' + currentN + '.objectives._count';
-                        }
-                        else if (elementDotFormat.indexOf('.correct_responses.') > 0) {
-                            currentN = elementDotFormat.match(/cmi.interactions.(\d+)./)[1];
-                            currentCounterIndex = elementDotFormat.match(/correct_responses.(\d+)./)[1];
-                            counterElement = 'cmi.interactions.' + currentN + '.correct_responses._count';
-                        }
-                        else {
-                            counterElement = 'cmi.interactions._count';
-                            currentCounterIndex = elementDotFormat.match(/.(\d+)./)[1];
-                        }
-                    }
-                    if (counterElement) {
-                        if (typeof this.currentUserData[scoId][counterElement] == 'undefined') {
-                            this.currentUserData[scoId][counterElement] = 0;
-                        }
-                        // Check if we need to sum.
-                        if (parseInt(currentCounterIndex) == parseInt(this.currentUserData[scoId][counterElement])) {
-                            this.currentUserData[scoId][counterElement] = parseInt(this.currentUserData[scoId][counterElement]) + 1;
-                        }
-                        if (parseInt(currentCounterIndex) > parseInt(this.currentUserData[scoId][counterElement])) {
-                            this.currentUserData[scoId][counterElement] = parseInt(currentCounterIndex) - 1;
-                        }
-                    }
-                }
-            }
-            // Set default status.
-            if (this.currentUserData[scoId]['cmi.core.lesson_status'] === '') {
-                this.currentUserData[scoId]['cmi.core.lesson_status'] = 'not attempted';
-            }
-            // Define mode and credit.
-            this.currentUserData[scoId]['cmi.core.credit'] = this.mode == providers_scorm["a" /* AddonModScormProvider */].MODENORMAL ? 'credit' : 'no-credit';
-            this.currentUserData[scoId]['cmi.core.lesson_mode'] = this.mode;
-        }
-    };
-    /**
-     * Commit the changes.
-     *
-     * @param {string} param Param.
-     * @return {string} "true" if success, "false" otherwise.
-     */
-    AddonModScormDataModel12.prototype.LMSCommit = function (param) {
-        if (this.timeout) {
-            clearTimeout(this.timeout);
-            this.timeout = null;
-        }
-        this.errorCode = '0';
-        if (param == '') {
-            if (this.initialized) {
-                var result = this.storeData(false);
-                // Trigger TOC update.
-                this.triggerEvent(providers_scorm["a" /* AddonModScormProvider */].UPDATE_TOC_EVENT);
-                this.errorCode = result ? '0' : '101';
-                // Conver to string representing a boolean.
-                return result ? 'true' : 'false';
-            }
-            else {
-                this.errorCode = '301';
-            }
-        }
-        else {
-            this.errorCode = '201';
-        }
-        return 'false';
-    };
-    /**
-     * Finish the data model.
-     *
-     * @param {string} param Param.
-     * @return {string} "true" if success, "false" otherwise.
-     */
-    AddonModScormDataModel12.prototype.LMSFinish = function (param) {
-        this.errorCode = '0';
-        if (param == '') {
-            if (this.initialized) {
-                this.initialized = false;
-                var result = this.storeData(true);
-                if (this.getEl('nav.event') != '') {
-                    if (this.getEl('nav.event') == 'continue') {
-                        this.triggerEvent(providers_scorm["a" /* AddonModScormProvider */].LAUNCH_NEXT_SCO_EVENT);
-                    }
-                    else {
-                        this.triggerEvent(providers_scorm["a" /* AddonModScormProvider */].LAUNCH_PREV_SCO_EVENT);
-                    }
-                }
-                else {
-                    if (this.scorm.auto == '1') {
-                        this.triggerEvent(providers_scorm["a" /* AddonModScormProvider */].LAUNCH_NEXT_SCO_EVENT);
-                    }
-                }
-                this.errorCode = result ? '0' : '101';
-                // Trigger TOC update.
-                this.triggerEvent(providers_scorm["a" /* AddonModScormProvider */].UPDATE_TOC_EVENT);
-                // Conver to string representing a boolean.
-                return result ? 'true' : 'false';
-            }
-            else {
-                this.errorCode = '301';
-            }
-        }
-        else {
-            this.errorCode = '201';
-        }
-        return 'false';
-    };
-    /**
-     * Get diagnostic.
-     *
-     * @param  {string} param Param.
-     * @return {string} Result.
-     */
-    AddonModScormDataModel12.prototype.LMSGetDiagnostic = function (param) {
-        if (param == '') {
-            param = this.errorCode;
-        }
-        return param;
-    };
-    /**
-     * Get the error message for a certain code.
-     *
-     * @param {string} param Error code.
-     * @return {string} Error message.
-     */
-    AddonModScormDataModel12.prototype.LMSGetErrorString = function (param) {
-        if (param != '') {
-            return this.ERROR_STRINGS[param];
-        }
-        else {
-            return '';
-        }
-    };
-    /**
-     * Get the last error code.
-     *
-     * @return {string} Last error code.
-     */
-    AddonModScormDataModel12.prototype.LMSGetLastError = function () {
-        return this.errorCode;
-    };
-    /**
-     * Get the value of a certain element.
-     *
-     * @param {string} element Name of the element to get.
-     * @return {string} Value.
-     */
-    AddonModScormDataModel12.prototype.LMSGetValue = function (element) {
-        this.errorCode = '0';
-        if (this.initialized) {
-            if (element != '') {
-                var expression = new RegExp(this.CMI_INDEX, 'g'), elementModel = String(element).replace(expression, '.n.');
-                if (typeof this.dataModel[this.scoId][elementModel] != 'undefined') {
-                    if (this.dataModel[this.scoId][elementModel].mod != 'w') {
-                        this.errorCode = '0';
-                        return this.getEl(element);
-                    }
-                    else {
-                        this.errorCode = this.dataModel[this.scoId][elementModel].readerror;
-                    }
-                }
-                else {
-                    var childrenStr = '._children', countStr = '._count';
-                    if (elementModel.substr(elementModel.length - childrenStr.length, elementModel.length) == childrenStr) {
-                        var parentModel = elementModel.substr(0, elementModel.length - childrenStr.length);
-                        if (typeof this.dataModel[this.scoId][parentModel] != 'undefined') {
-                            this.errorCode = '202';
-                        }
-                        else {
-                            this.errorCode = '201';
-                        }
-                    }
-                    else if (elementModel.substr(elementModel.length - countStr.length, elementModel.length) == countStr) {
-                        var parentModel = elementModel.substr(0, elementModel.length - countStr.length);
-                        if (typeof this.dataModel[this.scoId][parentModel] != 'undefined') {
-                            this.errorCode = '203';
-                        }
-                        else {
-                            this.errorCode = '201';
-                        }
-                    }
-                    else {
-                        this.errorCode = '201';
-                    }
-                }
-            }
-            else {
-                this.errorCode = '201';
-            }
-        }
-        else {
-            this.errorCode = '301';
-        }
-        return '';
-    };
-    /**
-     * Initialize the data model.
-     *
-     * @param {string} param Param.
-     * @return {string} "true" if initialized, "false" otherwise.
-     */
-    AddonModScormDataModel12.prototype.LMSInitialize = function (param) {
-        this.errorCode = '0';
-        if (param == '') {
-            if (!this.initialized) {
-                this.initialized = true;
-                this.errorCode = '0';
-                return 'true';
-            }
-            else {
-                this.errorCode = '101';
-            }
-        }
-        else {
-            this.errorCode = '201';
-        }
-        return 'false';
-    };
-    /**
-     * Set the value of a certain element.
-     *
-     * @param {string} element Name of the element to set.
-     * @param {any} value Value to set.
-     * @return {string} "true" if success, "false" otherwise.
-     */
-    AddonModScormDataModel12.prototype.LMSSetValue = function (element, value) {
-        this.errorCode = '0';
-        if (this.initialized) {
-            if (element != '') {
-                var expression = new RegExp(this.CMI_INDEX, 'g');
-                var elementModel = String(element).replace(expression, '.n.');
-                if (typeof this.dataModel[this.scoId][elementModel] != 'undefined') {
-                    if (this.dataModel[this.scoId][elementModel].mod != 'r') {
-                        expression = new RegExp(this.dataModel[this.scoId][elementModel].format);
-                        value = value + '';
-                        var matches = value.match(expression);
-                        if (matches != null) {
-                            // Create dynamic data model element.
-                            if (element != elementModel) {
-                                // Init default counters and values.
-                                if (element.indexOf('cmi.objectives') === 0) {
-                                    var currentN = element.match(/cmi.objectives.(\d+)./)[1], counterElement = 'cmi.objectives.' + currentN + '.score';
-                                    if (typeof this.currentUserData[this.scoId][counterElement + '._children'] == 'undefined') {
-                                        this.setEl(this.currentUserData[this.scoId][counterElement + '._children'], this.SCORE_CHILDREN);
-                                        this.setEl(this.currentUserData[this.scoId][counterElement + '.raw'], '');
-                                        this.setEl(this.currentUserData[this.scoId][counterElement + '.min'], '');
-                                        this.setEl(this.currentUserData[this.scoId][counterElement + '.max'], '');
-                                    }
-                                }
-                                else if (element.indexOf('cmi.interactions') === 0) {
-                                    var currentN = element.match(/cmi.interactions.(\d+)./)[1];
-                                    var counterElement = 'cmi.interactions.' + currentN + '.objectives._count';
-                                    if (typeof this.currentUserData[this.scoId][counterElement] == 'undefined') {
-                                        this.setEl(counterElement, 0);
-                                    }
-                                    counterElement = 'cmi.interactions.' + currentN + '.correct_responses._count';
-                                    if (typeof this.currentUserData[this.scoId][counterElement] == 'undefined') {
-                                        this.setEl(counterElement, 0);
-                                    }
-                                }
-                                var elementIndexes = element.split('.');
-                                var subElement = 'cmi';
-                                for (var i = 1; i < elementIndexes.length - 1; i++) {
-                                    var elementIndex = elementIndexes[i];
-                                    if (elementIndexes[i + 1].match(/^\d+$/)) {
-                                        var counterElement = subElement + '.' + elementIndex + '._count';
-                                        if (typeof this.currentUserData[this.scoId][counterElement] == 'undefined') {
-                                            this.setEl(counterElement, 0);
-                                        }
-                                        if (elementIndexes[i + 1] == this.getEl(counterElement)) {
-                                            var count = this.getEl(counterElement);
-                                            this.setEl(counterElement, parseInt(count, 10) + 1);
-                                        }
-                                        if (elementIndexes[i + 1] > this.getEl(counterElement)) {
-                                            this.errorCode = '201';
-                                        }
-                                        subElement = subElement.concat('.' + elementIndex + '.' + elementIndexes[i + 1]);
-                                        i++;
-                                    }
-                                    else {
-                                        subElement = subElement.concat('.' + elementIndex);
-                                    }
-                                }
-                                element = subElement.concat('.' + elementIndexes[elementIndexes.length - 1]);
-                            }
-                            // Store data.
-                            if (this.errorCode == '0') {
-                                if (this.scorm.autocommit && !(this.timeout)) {
-                                    this.timeout = setTimeout(this.LMSCommit.bind(this), 60000, ['']);
-                                }
-                                if (typeof this.dataModel[this.scoId][elementModel].range != 'undefined') {
-                                    var range = this.dataModel[this.scoId][elementModel].range, ranges = range.split('#');
-                                    value = value * 1.0;
-                                    if ((value >= ranges[0]) && (value <= ranges[1])) {
-                                        this.setEl(element, value);
-                                        this.errorCode = '0';
-                                        return 'true';
-                                    }
-                                    else {
-                                        this.errorCode = this.dataModel[this.scoId][elementModel].writeerror;
-                                    }
-                                }
-                                else {
-                                    if (element == 'cmi.comments') {
-                                        this.setEl('cmi.comments', this.getEl('cmi.comments') + value);
-                                    }
-                                    else {
-                                        this.setEl(element, value);
-                                    }
-                                    this.errorCode = '0';
-                                    return 'true';
-                                }
-                            }
-                        }
-                        else {
-                            this.errorCode = this.dataModel[this.scoId][elementModel].writeerror;
-                        }
-                    }
-                    else {
-                        this.errorCode = this.dataModel[this.scoId][elementModel].writeerror;
-                    }
-                }
-                else {
-                    this.errorCode = '201';
-                }
-            }
-            else {
-                this.errorCode = '201';
-            }
-        }
-        else {
-            this.errorCode = '301';
-        }
-        return 'false';
-    };
-    /**
-     * Set a SCO ID.
-     * The scoId is like a pointer to be able to retrieve the SCO default values and set the new ones in the overall SCORM
-     * data structure.
-     *
-     * @param {number} scoId The new SCO id.
-     */
-    AddonModScormDataModel12.prototype.loadSco = function (scoId) {
-        this.scoId = scoId;
-    };
-    /**
-     * Set the value of the given element in the non-persistent (current) user data.
-     *
-     * @param {string} el The element.
-     * @param {any} value The value.
-     */
-    AddonModScormDataModel12.prototype.setEl = function (el, value) {
-        if (typeof this.currentUserData[this.scoId] == 'undefined') {
-            this.currentUserData[this.scoId] = {};
-        }
-        this.currentUserData[this.scoId][el] = value;
-    };
-    /**
-     * Set offline mode to true or false.
-     *
-     * @param {boolean} offline True if offline, false otherwise.
-     */
-    AddonModScormDataModel12.prototype.setOffline = function (offline) {
-        this.offline = offline;
-    };
-    /**
-     * Persist the current user data (this is usually called by LMSCommit).
-     *
-     * @param {boolean} storeTotalTime If true, we need to calculate the total time too.
-     * @return {boolean} True if success, false otherwise.
-     */
-    AddonModScormDataModel12.prototype.storeData = function (storeTotalTime) {
-        var tracks;
-        if (storeTotalTime) {
-            if (this.getEl('cmi.core.lesson_status') == 'not attempted') {
-                this.setEl('cmi.core.lesson_status', 'completed');
-            }
-            if (this.getEl('cmi.core.lesson_mode') == providers_scorm["a" /* AddonModScormProvider */].MODENORMAL) {
-                if (this.getEl('cmi.core.credit') == 'credit') {
-                    if (this.getEl('cmi.student_data.mastery_score') !== '' && this.getEl('cmi.core.score.raw') !== '') {
-                        if (parseFloat(this.getEl('cmi.core.score.raw')) >=
-                            parseFloat(this.getEl('cmi.student_data.mastery_score'))) {
-                            this.setEl('cmi.core.lesson_status', 'passed');
-                        }
-                        else {
-                            this.setEl('cmi.core.lesson_status', 'failed');
-                        }
-                    }
-                }
-            }
-            if (this.getEl('cmi.core.lesson_mode') == providers_scorm["a" /* AddonModScormProvider */].MODEBROWSE) {
-                if (this.dataModel[this.scoId]['cmi.core.lesson_status'].defaultvalue == '' &&
-                    this.getEl('cmi.core.lesson_status') == 'not attempted') {
-                    this.setEl('cmi.core.lesson_status', 'browsed');
-                }
-            }
-            tracks = this.collectData();
-            tracks.push(this.totalTime());
-        }
-        else {
-            tracks = this.collectData();
-        }
-        var success = this.scormProvider.saveTracksSync(this.scoId, this.attempt, tracks, this.scorm, this.offline, this.currentUserData);
-        if (!this.offline && !success) {
-            // Failure storing data in online. Go offline.
-            this.offline = true;
-            this.triggerEvent(providers_scorm["a" /* AddonModScormProvider */].GO_OFFLINE_EVENT);
-            return this.scormProvider.saveTracksSync(this.scoId, this.attempt, tracks, this.scorm, this.offline, this.currentUserData);
-        }
-        return success;
-    };
-    /**
-     * Utility function for calculating the total time spent in the SCO.
-     *
-     * @return {any} Total time element.
-     */
-    AddonModScormDataModel12.prototype.totalTime = function () {
-        var totalTime = this.addTime(this.getEl('cmi.core.total_time'), this.getEl('cmi.core.session_time'));
-        return { element: 'cmi.core.total_time', value: totalTime };
-    };
-    /**
-     * Convenience function to trigger events.
-     *
-     * @param {string} name Name of the event to trigger.
-     */
-    AddonModScormDataModel12.prototype.triggerEvent = function (name) {
-        this.eventsProvider.trigger(name, {
-            scormId: this.scorm.id,
-            scoId: this.scoId,
-            attempt: this.attempt
-        }, this.siteId);
-    };
-    return AddonModScormDataModel12;
-}());
-
-//# sourceMappingURL=data-model-12.js.map
-// EXTERNAL MODULE: ./src/addon/mod/scorm/components/toc-popover/toc-popover.ts
-var toc_popover = __webpack_require__(680);
-
-// CONCATENATED MODULE: ./src/addon/mod/scorm/pages/player/player.ts
+// CONCATENATED MODULE: ./src/addon/mod/workshop/pages/edit-submission/edit-submission.ts
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -896,380 +89,353 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 /**
- * Page that allows playing a SCORM.
+ * Page that displays the workshop edit submission.
  */
-var player_AddonModScormPlayerPage = /** @class */ (function () {
-    function AddonModScormPlayerPage(navParams, popoverCtrl, eventsProvider, sitesProvider, syncProvider, domUtils, timeUtils, scormProvider, scormHelper, scormSyncProvider) {
-        this.popoverCtrl = popoverCtrl;
-        this.eventsProvider = eventsProvider;
-        this.sitesProvider = sitesProvider;
+var edit_submission_AddonModWorkshopEditSubmissionPage = /** @class */ (function () {
+    function AddonModWorkshopEditSubmissionPage(navParams, sitesProvider, fileUploaderProvider, workshopProvider, workshopOffline, workshopHelper, navCtrl, fileSessionprovider, syncProvider, textUtils, domUtils, fb, translate, eventsProvider) {
+        this.fileUploaderProvider = fileUploaderProvider;
+        this.workshopProvider = workshopProvider;
+        this.workshopOffline = workshopOffline;
+        this.workshopHelper = workshopHelper;
+        this.navCtrl = navCtrl;
+        this.fileSessionprovider = fileSessionprovider;
         this.syncProvider = syncProvider;
+        this.textUtils = textUtils;
         this.domUtils = domUtils;
-        this.timeUtils = timeUtils;
-        this.scormProvider = scormProvider;
-        this.scormHelper = scormHelper;
-        this.scormSyncProvider = scormSyncProvider;
-        this.loadingToc = true; // Whether the TOC is being loaded.
-        this.offline = false; // Whether it's offline mode.
-        this.scorm = navParams.get('scorm') || {};
-        this.mode = navParams.get('mode') || providers_scorm["a" /* AddonModScormProvider */].MODENORMAL;
-        this.newAttempt = !!navParams.get('newAttempt');
-        this.organizationId = navParams.get('organizationId');
-        this.initialScoId = navParams.get('scoId');
-        this.siteId = this.sitesProvider.getCurrentSiteId();
-        // We use SCORM name at start, later we'll use the SCO title.
-        this.title = this.scorm.name;
-        // Block the SCORM so it cannot be synchronized.
-        this.syncProvider.blockOperation(providers_scorm["a" /* AddonModScormProvider */].COMPONENT, this.scorm.id, 'player');
+        this.fb = fb;
+        this.translate = translate;
+        this.eventsProvider = eventsProvider;
+        this.submission = {
+            id: 0,
+            title: '',
+            content: '',
+            attachmentfiles: [],
+        };
+        this.loaded = false;
+        this.component = workshop["a" /* AddonModWorkshopProvider */].COMPONENT;
+        this.originalData = {};
+        this.hasOffline = false;
+        this.editing = false;
+        this.forceLeave = false;
+        this.isDestroyed = false;
+        this.textAvailable = false;
+        this.textRequired = false;
+        this.fileAvailable = false;
+        this.fileRequired = false;
+        this.module = navParams.get('module');
+        this.courseId = navParams.get('courseId');
+        this.access = navParams.get('access');
+        this.submissionId = navParams.get('submissionId');
+        this.workshopId = this.module.instance;
+        this.componentId = this.module.id;
+        this.userId = sitesProvider.getCurrentSiteUserId();
+        this.siteId = sitesProvider.getCurrentSiteId();
+        this.editForm = new esm5_forms["g" /* FormGroup */]({});
+        this.editForm.addControl('title', this.fb.control('', esm5_forms["u" /* Validators */].required));
+        this.editForm.addControl('content', this.fb.control(''));
     }
     /**
      * Component being initialized.
      */
-    AddonModScormPlayerPage.prototype.ngOnInit = function () {
-        var _this = this;
-        this.showToc = this.scormProvider.displayTocInPlayer(this.scorm);
-        if (this.scorm.popup) {
-            // If we receive a value <= 100 we need to assume it's a percentage.
-            if (this.scorm.width <= 100) {
-                this.scorm.width = this.scorm.width + '%';
-            }
-            if (this.scorm.height <= 100) {
-                this.scorm.height = this.scorm.height + '%';
-            }
+    AddonModWorkshopEditSubmissionPage.prototype.ngOnInit = function () {
+        if (!this.isDestroyed) {
+            // Block the workshop.
+            this.syncProvider.blockOperation(this.component, this.workshopId);
         }
-        // Fetch the SCORM data.
-        this.fetchData().then(function () {
-            if (_this.currentSco) {
-                // Set start time if it's a new attempt.
-                var promise = _this.newAttempt ? _this.setStartTime(_this.currentSco.id) : Promise.resolve();
-                return promise.catch(function (error) {
-                    _this.domUtils.showErrorModalDefault(error, 'addon.mod_scorm.errorgetscorm', true);
-                }).finally(function () {
-                    // Load SCO.
-                    _this.loadSco(_this.currentSco);
-                });
-            }
-        }).finally(function () {
-            _this.loaded = true;
-        });
-        // Listen for events to update the TOC, navigate through SCOs and go offline.
-        this.tocObserver = this.eventsProvider.on(providers_scorm["a" /* AddonModScormProvider */].UPDATE_TOC_EVENT, function (data) {
-            if (data.scormId === _this.scorm.id) {
-                if (_this.offline) {
-                    // Wait a bit to make sure data is stored.
-                    setTimeout(_this.refreshToc.bind(_this), 100);
-                }
-                else {
-                    _this.refreshToc();
-                }
-            }
-        }, this.siteId);
-        this.launchNextObserver = this.eventsProvider.on(providers_scorm["a" /* AddonModScormProvider */].LAUNCH_NEXT_SCO_EVENT, function (data) {
-            if (data.scormId === _this.scorm.id && _this.nextSco) {
-                _this.loadSco(_this.nextSco);
-            }
-        }, this.siteId);
-        this.launchPrevObserver = this.eventsProvider.on(providers_scorm["a" /* AddonModScormProvider */].LAUNCH_PREV_SCO_EVENT, function (data) {
-            if (data.scormId === _this.scorm.id && _this.previousSco) {
-                _this.loadSco(_this.previousSco);
-            }
-        }, this.siteId);
-        this.goOfflineObserver = this.eventsProvider.on(providers_scorm["a" /* AddonModScormProvider */].GO_OFFLINE_EVENT, function (data) {
-            if (data.scormId === _this.scorm.id && !_this.offline) {
-                _this.offline = true;
-                // Wait a bit to prevent collisions between this store and SCORM API's store.
-                setTimeout(function () {
-                    _this.scormHelper.convertAttemptToOffline(_this.scorm, _this.attempt).catch(function (error) {
-                        _this.domUtils.showErrorModalDefault(error, 'core.error', true);
-                    }).then(function () {
-                        _this.refreshToc();
-                    });
-                }, 200);
-            }
-        }, this.siteId);
+        this.fetchSubmissionData();
     };
     /**
-     * Calculate the next and previous SCO.
+     * Check if we can leave the page or not.
      *
-     * @param {number} scoId Current SCO ID.
+     * @return {boolean|Promise<void>} Resolved if we can leave it, rejected if not.
      */
-    AddonModScormPlayerPage.prototype.calculateNextAndPreviousSco = function (scoId) {
-        this.previousSco = this.scormHelper.getPreviousScoFromToc(this.toc, scoId);
-        this.nextSco = this.scormHelper.getNextScoFromToc(this.toc, scoId);
-    };
-    /**
-     * Determine the attempt to use, the mode (normal/preview) and if it's offline or online.
-     *
-     * @param {AddonModScormAttemptCountResult} attemptsData Attempts count.
-     * @return {Promise<any>} Promise resolved when done.
-     */
-    AddonModScormPlayerPage.prototype.determineAttemptAndMode = function (attemptsData) {
+    AddonModWorkshopEditSubmissionPage.prototype.ionViewCanLeave = function () {
         var _this = this;
-        var result;
-        return this.scormHelper.determineAttemptToContinue(this.scorm, attemptsData).then(function (data) {
-            _this.attempt = data.number;
-            _this.offline = data.offline;
-            if (_this.attempt != attemptsData.lastAttempt.number) {
-                _this.attemptToContinue = _this.attempt;
-            }
-            // Check if current attempt is incomplete.
-            if (_this.attempt > 0) {
-                return _this.scormProvider.isAttemptIncomplete(_this.scorm.id, _this.attempt, _this.offline);
-            }
-            else {
-                // User doesn't have attempts. Last attempt is not incomplete (since he doesn't have any).
-                return false;
-            }
-        }).then(function (incomplete) {
-            // Determine mode and attempt to use.
-            result = _this.scormProvider.determineAttemptAndMode(_this.scorm, _this.mode, _this.attempt, _this.newAttempt, incomplete);
-            if (result.attempt > _this.attempt) {
-                // We're creating a new attempt.
-                if (_this.offline) {
-                    // Last attempt was offline, so we'll create a new offline attempt.
-                    return _this.scormHelper.createOfflineAttempt(_this.scorm, result.attempt, attemptsData.online.length);
-                }
-                else {
-                    // Last attempt was online, verify that we can create a new online attempt. We ignore cache.
-                    return _this.scormProvider.getScormUserData(_this.scorm.id, result.attempt, undefined, false, true).catch(function () {
-                        // Cannot communicate with the server, create an offline attempt.
-                        _this.offline = true;
-                        return _this.scormHelper.createOfflineAttempt(_this.scorm, result.attempt, attemptsData.online.length);
-                    });
-                }
-            }
-        }).then(function () {
-            _this.mode = result.mode;
-            _this.newAttempt = result.newAttempt;
-            _this.attempt = result.attempt;
-        });
-    };
-    /**
-     * Fetch data needed to play the SCORM.
-     *
-     * @return {Promise<any>} Promise resolved when done.
-     */
-    AddonModScormPlayerPage.prototype.fetchData = function () {
-        var _this = this;
-        // Wait for any ongoing sync to finish. We won't sync a SCORM while it's being played.
-        return this.scormSyncProvider.waitForSync(this.scorm.id).then(function () {
-            // Get attempts data.
-            return _this.scormProvider.getAttemptCount(_this.scorm.id).then(function (attemptsData) {
-                return _this.determineAttemptAndMode(attemptsData).then(function () {
-                    // Fetch TOC and get user data.
-                    var promises = [];
-                    promises.push(_this.fetchToc());
-                    promises.push(_this.scormProvider.getScormUserData(_this.scorm.id, _this.attempt, undefined, _this.offline)
-                        .then(function (data) {
-                        _this.userData = data;
-                    }));
-                    return Promise.all(promises);
-                });
-            }).catch(function (error) {
-                _this.domUtils.showErrorModalDefault(error, 'addon.mod_scorm.errorgetscorm', true);
-            });
-        });
-    };
-    /**
-     * Fetch the TOC.
-     *
-     * @return {Promise<any>} Promise resolved when done.
-     */
-    AddonModScormPlayerPage.prototype.fetchToc = function () {
-        var _this = this;
-        this.loadingToc = true;
-        // We need to check incomplete again: attempt number or status might have changed.
-        return this.scormProvider.isAttemptIncomplete(this.scorm.id, this.attempt, this.offline).then(function (incomplete) {
-            _this.scorm.incomplete = incomplete;
-            // Get TOC.
-            return _this.scormProvider.getOrganizationToc(_this.scorm.id, _this.attempt, _this.organizationId, _this.offline);
-        }).then(function (toc) {
-            _this.toc = _this.scormProvider.formatTocToArray(toc);
-            // Get images for each SCO.
-            _this.toc.forEach(function (sco) {
-                sco.image = _this.scormProvider.getScoStatusIcon(sco, _this.scorm.incomplete);
-            });
-            // Determine current SCO if we received an ID..
-            if (_this.initialScoId > 0) {
-                // SCO set by parameter, get it from TOC.
-                _this.currentSco = _this.scormHelper.getScoFromToc(_this.toc, _this.initialScoId);
-            }
-            if (!_this.currentSco) {
-                // No SCO defined. Get the first valid one.
-                return _this.scormHelper.getFirstSco(_this.scorm.id, _this.attempt, _this.toc, _this.organizationId, _this.offline)
-                    .then(function (sco) {
-                    if (sco) {
-                        _this.currentSco = sco;
-                    }
-                    else {
-                        // We couldn't find a SCO to load: they're all inactive or without launch URL.
-                        _this.errorMessage = 'addon.mod_scorm.errornovalidsco';
-                    }
-                });
-            }
-        }).finally(function () {
-            _this.loadingToc = false;
-        });
-    };
-    /**
-     * Page will leave.
-     */
-    AddonModScormPlayerPage.prototype.ionViewWillLeave = function () {
-        // Empty src when leaving the state so unload event is triggered in the iframe.
-        this.src = '';
-    };
-    /**
-     * Load a SCO.
-     *
-     * @param {any} sco The SCO to load.
-     */
-    AddonModScormPlayerPage.prototype.loadSco = function (sco) {
-        var _this = this;
-        if (!this.dataModel) {
-            // Create the model.
-            this.dataModel = new data_model_12_AddonModScormDataModel12(this.eventsProvider, this.scormProvider, this.siteId, this.scorm, sco.id, this.attempt, this.userData, this.mode, this.offline);
-            // Add the model to the window so the SCORM can access it.
-            window.API = this.dataModel;
+        if (this.forceLeave) {
+            return true;
+        }
+        var promise;
+        // Check if data has changed.
+        if (!this.hasDataChanged()) {
+            promise = Promise.resolve();
         }
         else {
-            // Load the SCO in the existing model.
-            this.dataModel.loadSco(sco.id);
+            // Show confirmation if some data has been modified.
+            promise = this.domUtils.showConfirm(this.translate.instant('core.confirmcanceledit'));
         }
-        this.currentSco = sco;
-        this.title = sco.title || this.scorm.name; // Try to use SCO title.
-        this.calculateNextAndPreviousSco(sco.id);
-        // Load the SCO source.
-        this.scormProvider.getScoSrc(this.scorm, sco).then(function (src) {
-            if (src == _this.src) {
-                // Re-loading same page. Set it to empty and then re-set the src in the next digest so it detects it has changed.
-                _this.src = '';
-                setTimeout(function () {
-                    _this.src = src;
-                });
-            }
-            else {
-                _this.src = src;
+        return promise.then(function () {
+            if (_this.submission.attachmentfiles) {
+                // Delete the local files from the tmp folder.
+                _this.fileUploaderProvider.clearTmpFiles(_this.submission.attachmentfiles);
             }
         });
-        if (sco.scormtype == 'asset') {
-            // Mark the asset as completed.
-            var tracks_1 = [{
-                    element: 'cmi.core.lesson_status',
-                    value: 'completed'
-                }];
-            this.scormProvider.saveTracks(sco.id, this.attempt, tracks_1, this.scorm, this.offline).catch(function () {
-                // Error saving data. We'll go offline if we're online and the asset is not marked as completed already.
-                if (!_this.offline) {
-                    return _this.scormProvider.getScormUserData(_this.scorm.id, _this.attempt, undefined, false).then(function (data) {
-                        if (!data[sco.id] || data[sco.id].userdata['cmi.core.lesson_status'] != 'completed') {
-                            // Go offline.
-                            return _this.scormHelper.convertAttemptToOffline(_this.scorm, _this.attempt).then(function () {
-                                _this.offline = true;
-                                _this.dataModel.setOffline(true);
-                                return _this.scormProvider.saveTracks(sco.id, _this.attempt, tracks_1, _this.scorm, true);
-                            }).catch(function (error) {
-                                _this.domUtils.showErrorModalDefault(error, 'core.error', true);
-                            });
-                        }
-                    });
+    };
+    /**
+     * Fetch the submission data.
+     *
+     * @return {Promise<void>} Resolved when done.
+     */
+    AddonModWorkshopEditSubmissionPage.prototype.fetchSubmissionData = function () {
+        var _this = this;
+        return this.workshopProvider.getWorkshop(this.courseId, this.module.id).then(function (workshopData) {
+            _this.workshop = workshopData;
+            _this.textAvailable = (_this.workshop.submissiontypetext != workshop["a" /* AddonModWorkshopProvider */].SUBMISSION_TYPE_DISABLED);
+            _this.textRequired = (_this.workshop.submissiontypetext == workshop["a" /* AddonModWorkshopProvider */].SUBMISSION_TYPE_REQUIRED);
+            _this.fileAvailable = (_this.workshop.submissiontypefile != workshop["a" /* AddonModWorkshopProvider */].SUBMISSION_TYPE_DISABLED);
+            _this.fileRequired = (_this.workshop.submissiontypefile == workshop["a" /* AddonModWorkshopProvider */].SUBMISSION_TYPE_REQUIRED);
+            _this.editForm.controls.content.setValidators(_this.textRequired ? esm5_forms["u" /* Validators */].required : null);
+            if (_this.submissionId > 0) {
+                _this.editing = true;
+                return _this.workshopHelper.getSubmissionById(_this.workshopId, _this.submissionId).then(function (submissionData) {
+                    _this.submission = submissionData;
+                    var canEdit = (_this.userId == submissionData.authorid && _this.access.cansubmit &&
+                        _this.access.modifyingsubmissionallowed);
+                    if (!canEdit) {
+                        // Should not happen, but go back if does.
+                        _this.forceLeavePage();
+                        return;
+                    }
+                });
+            }
+            else if (!_this.access.cansubmit || !_this.access.creatingsubmissionallowed) {
+                // Should not happen, but go back if does.
+                _this.forceLeavePage();
+                return;
+            }
+        }).then(function () {
+            return _this.workshopOffline.getSubmissions(_this.workshopId).then(function (submissionsActions) {
+                if (submissionsActions && submissionsActions.length) {
+                    _this.hasOffline = true;
+                    var actions = _this.workshopHelper.filterSubmissionActions(submissionsActions, _this.editing ?
+                        _this.submission.id : 0);
+                    return _this.workshopHelper.applyOfflineData(_this.submission, actions);
                 }
-            }).then(function () {
-                // Refresh TOC, some prerequisites might have changed.
-                _this.refreshToc();
+                else {
+                    _this.hasOffline = false;
+                }
+            }).finally(function () {
+                _this.originalData.title = _this.submission.title;
+                _this.originalData.content = _this.submission.content;
+                _this.originalData.attachmentfiles = [];
+                _this.submission.attachmentfiles.forEach(function (file) {
+                    var filename;
+                    if (file.filename) {
+                        filename = file.filename;
+                    }
+                    else {
+                        // We don't have filename, extract it from the path.
+                        filename = file.filepath[0] == '/' ? file.filepath.substr(1) : file.filepath;
+                    }
+                    _this.originalData.attachmentfiles.push({
+                        filename: filename,
+                        fileurl: file.fileurl
+                    });
+                });
+            });
+        }).then(function () {
+            _this.editForm.controls['title'].setValue(_this.submission.title);
+            _this.editForm.controls['content'].setValue(_this.submission.content);
+            var submissionId = _this.submission.id || 'newsub';
+            _this.fileSessionprovider.setFiles(_this.component, _this.workshopId + '_' + submissionId, _this.submission.attachmentfiles || []);
+            _this.loaded = true;
+        }).catch(function (message) {
+            _this.loaded = false;
+            _this.domUtils.showErrorModalDefault(message, 'core.course.errorgetmodule', true);
+            _this.forceLeavePage();
+        });
+    };
+    /**
+     * Force leaving the page, without checking for changes.
+     */
+    AddonModWorkshopEditSubmissionPage.prototype.forceLeavePage = function () {
+        this.forceLeave = true;
+        this.navCtrl.pop();
+    };
+    /**
+     * Get the form input data.
+     *
+     * @return {any} Object with all the info.
+     */
+    AddonModWorkshopEditSubmissionPage.prototype.getInputData = function () {
+        var submissionId = this.submission.id || 'newsub';
+        var values = {
+            title: this.editForm.value.title,
+            content: null,
+            attachmentfiles: []
+        };
+        if (this.textAvailable) {
+            values.content = this.editForm.value.content || '';
+        }
+        if (this.fileAvailable) {
+            values.attachmentfiles = this.fileSessionprovider.getFiles(this.component, this.workshopId + '_' + submissionId) || [];
+        }
+        return values;
+    };
+    /**
+     * Check if data has changed.
+     *
+     * @return {boolean} True if changed or false if not.
+     */
+    AddonModWorkshopEditSubmissionPage.prototype.hasDataChanged = function () {
+        if (!this.loaded) {
+            return false;
+        }
+        var inputData = this.getInputData();
+        if (!this.originalData || typeof this.originalData.title == 'undefined') {
+            // There is no original data, assume it hasn't changed.
+            return false;
+        }
+        if (this.originalData.title != inputData.title || this.textAvailable && this.originalData.content != inputData.content) {
+            return true;
+        }
+        if (this.fileAvailable) {
+            return this.fileUploaderProvider.areFileListDifferent(inputData.attachmentfiles, this.originalData.attachmentfiles);
+        }
+        return false;
+    };
+    /**
+     * Pull to refresh.
+     *
+     * @param {any} refresher Refresher.
+     */
+    AddonModWorkshopEditSubmissionPage.prototype.refreshSubmission = function (refresher) {
+        var _this = this;
+        if (this.loaded) {
+            var promises = [];
+            promises.push(this.workshopProvider.invalidateSubmissionData(this.workshopId, this.submission.id));
+            promises.push(this.workshopProvider.invalidateSubmissionsData(this.workshopId));
+            Promise.all(promises).finally(function () {
+                return _this.fetchSubmissionData();
+            }).finally(function () {
+                refresher.complete();
             });
         }
-        // Trigger SCO launch event.
-        this.scormProvider.logLaunchSco(this.scorm.id, sco.id).catch(function () {
-            // Ignore errors.
-        });
     };
     /**
-     * Show the TOC.
-     *
-     * @param {MouseEvent} event Event.
+     * Save the submission.
      */
-    AddonModScormPlayerPage.prototype.openToc = function (event) {
+    AddonModWorkshopEditSubmissionPage.prototype.save = function () {
         var _this = this;
-        var popover = this.popoverCtrl.create(toc_popover["a" /* AddonModScormTocPopoverComponent */], {
-            toc: this.toc,
-            attemptToContinue: this.attemptToContinue,
-            mode: this.mode
-        });
-        // If the popover sends back a SCO, load it.
-        popover.onDidDismiss(function (sco) {
-            if (sco) {
-                _this.loadSco(sco);
+        // Check if data has changed.
+        if (this.hasDataChanged()) {
+            this.saveSubmission().then(function () {
+                // Go back to entry list.
+                _this.forceLeavePage();
+            }).catch(function () {
+                // Nothing to do.
+            });
+        }
+        else {
+            // Nothing to save, just go back.
+            this.forceLeavePage();
+        }
+    };
+    /**
+     * Send submission and save.
+     *
+     * @return {Promise<any>} Resolved when done.
+     */
+    AddonModWorkshopEditSubmissionPage.prototype.saveSubmission = function () {
+        var _this = this;
+        var inputData = this.getInputData();
+        if (!inputData.title) {
+            this.domUtils.showAlertTranslated('core.notice', 'addon.mod_workshop.submissionrequiredtitle');
+            return Promise.reject(null);
+        }
+        var noText = this.textUtils.htmlIsBlank(inputData.content);
+        var noFiles = !inputData.attachmentfiles.length;
+        if (this.textRequired && noText || this.fileRequired && noFiles || noText && noFiles) {
+            this.domUtils.showAlertTranslated('core.notice', 'addon.mod_workshop.submissionrequiredcontent');
+            return Promise.reject(null);
+        }
+        var allowOffline = true, saveOffline = false;
+        var modal = this.domUtils.showModalLoading('core.sending', true), submissionId = this.submission.id;
+        // Add some HTML to the message if needed.
+        if (this.textAvailable) {
+            inputData.content = this.textUtils.formatHtmlLines(inputData.content);
+        }
+        // Upload attachments first if any.
+        allowOffline = !inputData.attachmentfiles.length;
+        return this.workshopHelper.uploadOrStoreSubmissionFiles(this.workshopId, this.submission.id, inputData.attachmentfiles, this.editing, saveOffline).catch(function () {
+            // Cannot upload them in online, save them in offline.
+            saveOffline = true;
+            allowOffline = true;
+            return _this.workshopHelper.uploadOrStoreSubmissionFiles(_this.workshopId, _this.submission.id, inputData.attachmentfiles, _this.editing, saveOffline);
+        }).then(function (attachmentsId) {
+            if (!saveOffline && !_this.fileAvailable) {
+                attachmentsId = null;
             }
-        });
-        popover.present({
-            ev: event
-        });
-    };
-    /**
-     * Refresh the TOC.
-     *
-     * @return {Promise<any>} Promise resolved when done.
-     */
-    AddonModScormPlayerPage.prototype.refreshToc = function () {
-        var _this = this;
-        return this.scormProvider.invalidateAllScormData(this.scorm.id).catch(function () {
-            // Ignore errors.
-        }).then(function () {
-            return _this.fetchToc();
-        }).catch(function (error) {
-            _this.domUtils.showErrorModalDefault(error, 'addon.mod_scorm.errorgetscorm', true);
-        });
-    };
-    /**
-     * Set SCORM start time.
-     *
-     * @param {number} scoId SCO ID.
-     * @return {Promise<any>} Promise resolved when done.
-     */
-    AddonModScormPlayerPage.prototype.setStartTime = function (scoId) {
-        var _this = this;
-        var tracks = [{
-                element: 'x.start.time',
-                value: this.timeUtils.timestamp()
-            }];
-        return this.scormProvider.saveTracks(scoId, this.attempt, tracks, this.scorm, this.offline).then(function () {
-            if (!_this.offline) {
-                // New online attempt created, update cached data about online attempts.
-                _this.scormProvider.getAttemptCount(_this.scorm.id, false, true).catch(function () {
-                    // Ignore errors.
+            if (_this.editing) {
+                if (saveOffline) {
+                    // Save submission in offline.
+                    return _this.workshopOffline.saveSubmission(_this.workshopId, _this.courseId, inputData.title, inputData.content, attachmentsId, submissionId, 'update').then(function () {
+                        // Don't return anything.
+                    });
+                }
+                // Try to send it to server.
+                // Don't allow offline if there are attachments since they were uploaded fine.
+                return _this.workshopProvider.updateSubmission(_this.workshopId, submissionId, _this.courseId, inputData.title, inputData.content, attachmentsId, undefined, allowOffline);
+            }
+            if (saveOffline) {
+                // Save submission in offline.
+                return _this.workshopOffline.saveSubmission(_this.workshopId, _this.courseId, inputData.title, inputData.content, attachmentsId, submissionId, 'add').then(function () {
+                    // Don't return anything.
                 });
             }
+            // Try to send it to server.
+            // Don't allow offline if there are attachments since they were uploaded fine.
+            return _this.workshopProvider.addSubmission(_this.workshopId, _this.courseId, inputData.title, inputData.content, attachmentsId, undefined, submissionId, allowOffline);
+        }).then(function (newSubmissionId) {
+            var data = {
+                workshopId: _this.workshopId,
+                cmId: _this.module.cmid
+            };
+            if (newSubmissionId && submissionId) {
+                // Data sent to server, delete stored files (if any).
+                _this.workshopOffline.deleteSubmissionAction(_this.workshopId, submissionId, _this.editing ? 'update' : 'add');
+                _this.workshopHelper.deleteSubmissionStoredFiles(_this.workshopId, submissionId, _this.editing);
+                data['submissionId'] = newSubmissionId;
+            }
+            var promise = newSubmissionId ? _this.workshopProvider.invalidateSubmissionData(_this.workshopId, newSubmissionId) :
+                Promise.resolve();
+            return promise.finally(function () {
+                _this.eventsProvider.trigger(workshop["a" /* AddonModWorkshopProvider */].SUBMISSION_CHANGED, data, _this.siteId);
+                // Delete the local files from the tmp folder.
+                _this.fileUploaderProvider.clearTmpFiles(inputData.attachmentfiles);
+            });
+        }).catch(function (message) {
+            _this.domUtils.showErrorModalDefault(message, 'Cannot save submission');
+        }).finally(function () {
+            modal.dismiss();
         });
     };
     /**
      * Component being destroyed.
      */
-    AddonModScormPlayerPage.prototype.ngOnDestroy = function () {
-        // Stop listening for events.
-        this.tocObserver && this.tocObserver.off();
-        this.launchNextObserver && this.launchNextObserver.off();
-        this.launchPrevObserver && this.launchPrevObserver.off();
-        this.goOfflineObserver && this.goOfflineObserver.off();
-        // Unblock the SCORM so it can be synced.
-        this.syncProvider.unblockOperation(providers_scorm["a" /* AddonModScormProvider */].COMPONENT, this.scorm.id, 'player');
+    AddonModWorkshopEditSubmissionPage.prototype.ngOnDestroy = function () {
+        this.isDestroyed = true;
+        this.syncProvider.unblockOperation(this.component, this.workshopId);
     };
-    AddonModScormPlayerPage = __decorate([
+    AddonModWorkshopEditSubmissionPage = __decorate([
         Object(core["m" /* Component */])({
-            selector: 'page-addon-mod-scorm-player',
-            templateUrl: 'player.html',
+            selector: 'page-addon-mod-workshop-edit-submission',
+            templateUrl: 'edit-submission.html',
         }),
-        __metadata("design:paramtypes", [ionic_angular["r" /* NavParams */], ionic_angular["u" /* PopoverController */], events["a" /* CoreEventsProvider */],
-            sites["a" /* CoreSitesProvider */], sync["a" /* CoreSyncProvider */],
-            dom["a" /* CoreDomUtilsProvider */], time["a" /* CoreTimeUtilsProvider */],
-            providers_scorm["a" /* AddonModScormProvider */], helper["a" /* AddonModScormHelperProvider */],
-            scorm_sync["a" /* AddonModScormSyncProvider */]])
-    ], AddonModScormPlayerPage);
-    return AddonModScormPlayerPage;
+        __metadata("design:paramtypes", [ionic_angular["t" /* NavParams */], sites["a" /* CoreSitesProvider */], fileuploader["a" /* CoreFileUploaderProvider */],
+            workshop["a" /* AddonModWorkshopProvider */], offline["a" /* AddonModWorkshopOfflineProvider */],
+            helper["a" /* AddonModWorkshopHelperProvider */], ionic_angular["s" /* NavController */],
+            file_session["a" /* CoreFileSessionProvider */], sync["a" /* CoreSyncProvider */],
+            utils_text["a" /* CoreTextUtilsProvider */], dom["a" /* CoreDomUtilsProvider */], esm5_forms["d" /* FormBuilder */],
+            _ngx_translate_core["c" /* TranslateService */], events["a" /* CoreEventsProvider */]])
+    ], AddonModWorkshopEditSubmissionPage);
+    return AddonModWorkshopEditSubmissionPage;
 }());
 
-//# sourceMappingURL=player.js.map
-// CONCATENATED MODULE: ./src/addon/mod/scorm/pages/player/player.module.ts
+//# sourceMappingURL=edit-submission.js.map
+// CONCATENATED MODULE: ./src/addon/mod/workshop/pages/edit-submission/edit-submission.module.ts
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -1283,7 +449,7 @@ var player_AddonModScormPlayerPage = /** @class */ (function () {
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-var player_module___decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+var edit_submission_module___decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -1295,195 +461,210 @@ var player_module___decorate = (this && this.__decorate) || function (decorators
 
 
 
-var player_module_AddonModScormPlayerPageModule = /** @class */ (function () {
-    function AddonModScormPlayerPageModule() {
+var edit_submission_module_AddonModWorkshopEditSubmissionPageModule = /** @class */ (function () {
+    function AddonModWorkshopEditSubmissionPageModule() {
     }
-    AddonModScormPlayerPageModule = player_module___decorate([
+    AddonModWorkshopEditSubmissionPageModule = edit_submission_module___decorate([
         Object(core["I" /* NgModule */])({
             declarations: [
-                player_AddonModScormPlayerPage,
+                edit_submission_AddonModWorkshopEditSubmissionPage,
             ],
             imports: [
-                components_module["a" /* CoreComponentsModule */],
                 directives_module["a" /* CoreDirectivesModule */],
-                ionic_angular["l" /* IonicPageModule */].forChild(player_AddonModScormPlayerPage),
+                components_module["a" /* CoreComponentsModule */],
+                ionic_angular["l" /* IonicPageModule */].forChild(edit_submission_AddonModWorkshopEditSubmissionPage),
                 _ngx_translate_core["b" /* TranslateModule */].forChild()
             ],
         })
-    ], AddonModScormPlayerPageModule);
-    return AddonModScormPlayerPageModule;
+    ], AddonModWorkshopEditSubmissionPageModule);
+    return AddonModWorkshopEditSubmissionPageModule;
 }());
 
-//# sourceMappingURL=player.module.js.map
+//# sourceMappingURL=edit-submission.module.js.map
 // EXTERNAL MODULE: ./node_modules/ionic-angular/components/action-sheet/action-sheet-component.ngfactory.js
-var action_sheet_component_ngfactory = __webpack_require__(1273);
+var action_sheet_component_ngfactory = __webpack_require__(1391);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/components/alert/alert-component.ngfactory.js
-var alert_component_ngfactory = __webpack_require__(1274);
+var alert_component_ngfactory = __webpack_require__(1392);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/components/app/app-root.ngfactory.js
-var app_root_ngfactory = __webpack_require__(1275);
+var app_root_ngfactory = __webpack_require__(1393);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/components/loading/loading-component.ngfactory.js
-var loading_component_ngfactory = __webpack_require__(1276);
+var loading_component_ngfactory = __webpack_require__(1394);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/components/modal/modal-component.ngfactory.js
-var modal_component_ngfactory = __webpack_require__(1277);
+var modal_component_ngfactory = __webpack_require__(1395);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/components/picker/picker-component.ngfactory.js + 1 modules
-var picker_component_ngfactory = __webpack_require__(1278);
+var picker_component_ngfactory = __webpack_require__(1396);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/components/popover/popover-component.ngfactory.js
-var popover_component_ngfactory = __webpack_require__(1279);
+var popover_component_ngfactory = __webpack_require__(1397);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/components/select/select-popover-component.ngfactory.js
-var select_popover_component_ngfactory = __webpack_require__(1280);
+var select_popover_component_ngfactory = __webpack_require__(1398);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/components/toast/toast-component.ngfactory.js
-var toast_component_ngfactory = __webpack_require__(1281);
+var toast_component_ngfactory = __webpack_require__(1399);
 
 // EXTERNAL MODULE: ./src/components/context-menu/context-menu-popover.ngfactory.js
-var context_menu_popover_ngfactory = __webpack_require__(1284);
+var context_menu_popover_ngfactory = __webpack_require__(1402);
 
 // EXTERNAL MODULE: ./src/components/course-picker-menu/course-picker-menu-popover.ngfactory.js
-var course_picker_menu_popover_ngfactory = __webpack_require__(1285);
+var course_picker_menu_popover_ngfactory = __webpack_require__(1403);
 
 // EXTERNAL MODULE: ./src/components/recaptcha/recaptchamodal.ngfactory.js
-var recaptchamodal_ngfactory = __webpack_require__(1286);
+var recaptchamodal_ngfactory = __webpack_require__(1404);
 
-// EXTERNAL MODULE: ./node_modules/ionic-angular/components/button/button.ngfactory.js
-var button_ngfactory = __webpack_require__(45);
+// EXTERNAL MODULE: ./src/components/bs-tooltip/bs-tooltip.ngfactory.js
+var bs_tooltip_ngfactory = __webpack_require__(1405);
 
-// EXTERNAL MODULE: ./node_modules/ionic-angular/components/button/button.js
-var button_button = __webpack_require__(40);
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/item/item.ngfactory.js + 1 modules
+var item_ngfactory = __webpack_require__(30);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/item/item.js
+var item = __webpack_require__(20);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/util/form.js
+var util_form = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/config/config.js
 var config = __webpack_require__(6);
 
-// EXTERNAL MODULE: ./node_modules/ionic-angular/components/icon/icon.js
-var icon = __webpack_require__(41);
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/item/item-reorder.js + 1 modules
+var item_reorder = __webpack_require__(28);
 
-// EXTERNAL MODULE: ./node_modules/ionic-angular/components/spinner/spinner.ngfactory.js
-var spinner_ngfactory = __webpack_require__(180);
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/item/item-content.js
+var item_content = __webpack_require__(32);
 
-// EXTERNAL MODULE: ./node_modules/ionic-angular/components/spinner/spinner.js
-var spinner = __webpack_require__(134);
+// EXTERNAL MODULE: ./src/components/mark-required/mark-required.ngfactory.js
+var mark_required_ngfactory = __webpack_require__(86);
 
-// EXTERNAL MODULE: ./src/components/iframe/iframe.ngfactory.js
-var iframe_ngfactory = __webpack_require__(430);
-
-// EXTERNAL MODULE: ./src/components/iframe/iframe.ts
-var iframe = __webpack_require__(273);
-
-// EXTERNAL MODULE: ./src/providers/logger.ts
-var logger = __webpack_require__(4);
-
-// EXTERNAL MODULE: ./src/providers/utils/iframe.ts
-var utils_iframe = __webpack_require__(37);
-
-// EXTERNAL MODULE: ./node_modules/@angular/platform-browser/esm5/platform-browser.js
-var platform_browser = __webpack_require__(84);
-
-// EXTERNAL MODULE: ./node_modules/@ngx-translate/core/src/translate.pipe.js
-var translate_pipe = __webpack_require__(29);
+// EXTERNAL MODULE: ./src/components/mark-required/mark-required.ts
+var mark_required = __webpack_require__(77);
 
 // EXTERNAL MODULE: ./node_modules/@ngx-translate/core/src/translate.service.js
-var translate_service = __webpack_require__(17);
+var translate_service = __webpack_require__(18);
 
-// EXTERNAL MODULE: ./node_modules/ionic-angular/components/toolbar/toolbar-header.js
-var toolbar_header = __webpack_require__(416);
+// EXTERNAL MODULE: ./src/providers/utils/utils.ts
+var utils = __webpack_require__(2);
 
-// EXTERNAL MODULE: ./node_modules/ionic-angular/navigation/view-controller.js
-var view_controller = __webpack_require__(35);
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/label/label.js
+var label = __webpack_require__(62);
 
-// EXTERNAL MODULE: ./node_modules/ionic-angular/components/toolbar/navbar.ngfactory.js
-var navbar_ngfactory = __webpack_require__(1282);
+// EXTERNAL MODULE: ./node_modules/@ngx-translate/core/src/translate.pipe.js
+var translate_pipe = __webpack_require__(27);
 
-// EXTERNAL MODULE: ./node_modules/ionic-angular/components/toolbar/navbar.js
-var navbar = __webpack_require__(191);
+// EXTERNAL MODULE: ./src/components/rich-text-editor/rich-text-editor.ngfactory.js
+var rich_text_editor_ngfactory = __webpack_require__(297);
+
+// EXTERNAL MODULE: ./src/components/rich-text-editor/rich-text-editor.ts
+var rich_text_editor = __webpack_require__(238);
+
+// EXTERNAL MODULE: ./src/providers/utils/url.ts
+var url = __webpack_require__(23);
+
+// EXTERNAL MODULE: ./src/providers/filepool.ts
+var filepool = __webpack_require__(17);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/content/content.js
+var content = __webpack_require__(26);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/platform/platform.js + 1 modules
+var platform = __webpack_require__(14);
+
+// EXTERNAL MODULE: ./src/components/attachments/attachments.ngfactory.js
+var attachments_ngfactory = __webpack_require__(466);
+
+// EXTERNAL MODULE: ./src/components/attachments/attachments.ts
+var attachments = __webpack_require__(301);
+
+// EXTERNAL MODULE: ./src/providers/app.ts
+var app = __webpack_require__(9);
+
+// EXTERNAL MODULE: ./src/core/fileuploader/providers/helper.ts
+var providers_helper = __webpack_require__(139);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/input/input.ngfactory.js
+var input_ngfactory = __webpack_require__(100);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/input/input.js
+var input = __webpack_require__(81);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/components/app/app.js + 3 modules
-var app = __webpack_require__(26);
+var app_app = __webpack_require__(33);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/platform/dom-controller.js
+var dom_controller = __webpack_require__(31);
+
+// EXTERNAL MODULE: ./node_modules/@angular/common/esm5/common.js
+var common = __webpack_require__(7);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/toolbar/toolbar-header.js
+var toolbar_header = __webpack_require__(455);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/navigation/view-controller.js
+var view_controller = __webpack_require__(38);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/toolbar/navbar.ngfactory.js
+var navbar_ngfactory = __webpack_require__(1400);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/toolbar/navbar.js
+var navbar = __webpack_require__(211);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/navigation/nav-controller.js
 var nav_controller = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./src/directives/back-button.ts
-var back_button = __webpack_require__(632);
-
-// EXTERNAL MODULE: ./node_modules/ionic-angular/platform/platform.js + 1 modules
-var platform = __webpack_require__(14);
+var back_button = __webpack_require__(687);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/components/toolbar/toolbar-title.ngfactory.js
-var toolbar_title_ngfactory = __webpack_require__(1283);
+var toolbar_title_ngfactory = __webpack_require__(1401);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/components/toolbar/toolbar-title.js
-var toolbar_title = __webpack_require__(324);
+var toolbar_title = __webpack_require__(352);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/components/toolbar/toolbar.js
-var toolbar = __webpack_require__(236);
-
-// EXTERNAL MODULE: ./src/directives/format-text.ts
-var format_text = __webpack_require__(39);
-
-// EXTERNAL MODULE: ./src/providers/utils/text.ts
-var utils_text = __webpack_require__(11);
-
-// EXTERNAL MODULE: ./src/providers/utils/utils.ts
-var utils = __webpack_require__(2);
-
-// EXTERNAL MODULE: ./src/providers/utils/url.ts
-var url = __webpack_require__(24);
-
-// EXTERNAL MODULE: ./src/providers/filepool.ts
-var filepool = __webpack_require__(16);
-
-// EXTERNAL MODULE: ./src/providers/app.ts
-var providers_app = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./src/core/contentlinks/providers/helper.ts
-var providers_helper = __webpack_require__(22);
-
-// EXTERNAL MODULE: ./node_modules/ionic-angular/components/content/content.js
-var content = __webpack_require__(23);
-
-// EXTERNAL MODULE: ./src/components/split-view/split-view.ts
-var split_view = __webpack_require__(34);
+var toolbar = __webpack_require__(259);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/components/toolbar/toolbar-item.js
-var toolbar_item = __webpack_require__(417);
+var toolbar_item = __webpack_require__(456);
 
-// EXTERNAL MODULE: ./node_modules/@angular/common/esm5/common.js
-var common = __webpack_require__(8);
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/button/button.ngfactory.js
+var button_ngfactory = __webpack_require__(45);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/button/button.js
+var button_button = __webpack_require__(41);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/components/content/content.ngfactory.js
-var content_ngfactory = __webpack_require__(177);
-
-// EXTERNAL MODULE: ./node_modules/ionic-angular/platform/dom-controller.js
-var dom_controller = __webpack_require__(25);
+var content_ngfactory = __webpack_require__(185);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/platform/keyboard.js
-var keyboard = __webpack_require__(99);
+var keyboard = __webpack_require__(106);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/refresher/refresher.js
+var refresher = __webpack_require__(147);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/gestures/gesture-controller.js
+var gesture_controller = __webpack_require__(40);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/refresher/refresher-content.ngfactory.js
+var refresher_content_ngfactory = __webpack_require__(200);
+
+// EXTERNAL MODULE: ./node_modules/ionic-angular/components/refresher/refresher-content.js
+var refresher_content = __webpack_require__(161);
 
 // EXTERNAL MODULE: ./src/components/loading/loading.ngfactory.js
-var loading_ngfactory = __webpack_require__(56);
+var loading_ngfactory = __webpack_require__(51);
 
 // EXTERNAL MODULE: ./src/components/loading/loading.ts
-var loading = __webpack_require__(50);
-
-// EXTERNAL MODULE: ./src/components/navigation-bar/navigation-bar.ngfactory.js
-var navigation_bar_ngfactory = __webpack_require__(678);
-
-// EXTERNAL MODULE: ./src/components/navigation-bar/navigation-bar.ts
-var navigation_bar = __webpack_require__(344);
+var loading = __webpack_require__(48);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/navigation/nav-params.js
-var nav_params = __webpack_require__(59);
+var nav_params = __webpack_require__(69);
 
-// EXTERNAL MODULE: ./node_modules/ionic-angular/components/popover/popover-controller.js
-var popover_controller = __webpack_require__(68);
-
-// CONCATENATED MODULE: ./src/addon/mod/scorm/pages/player/player.ngfactory.js
+// CONCATENATED MODULE: ./src/addon/mod/workshop/pages/edit-submission/edit-submission.ngfactory.js
 /**
  * @fileoverview This file was generated by the Angular template compiler. Do not edit.
  *
@@ -1544,53 +725,62 @@ var popover_controller = __webpack_require__(68);
 
 
 
-var styles_AddonModScormPlayerPage = [];
-var RenderType_AddonModScormPlayerPage = core["_29" /* ɵcrt */]({ encapsulation: 2, styles: styles_AddonModScormPlayerPage, data: {} });
 
-function View_AddonModScormPlayerPage_1(_l) { return core["_57" /* ɵvid */](0, [(_l()(), core["_31" /* ɵeld */](0, 0, null, null, 5, "button", [["icon-only", ""], ["ion-button", ""]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
-        var pd_0 = (_co.openToc($event) !== false);
+
+
+
+
+
+
+var styles_AddonModWorkshopEditSubmissionPage = [];
+var RenderType_AddonModWorkshopEditSubmissionPage = core["_29" /* ɵcrt */]({ encapsulation: 2, styles: styles_AddonModWorkshopEditSubmissionPage, data: {} });
+
+function View_AddonModWorkshopEditSubmissionPage_2(_l) { return core["_57" /* ɵvid */](0, [(_l()(), core["_31" /* ɵeld */](0, 0, null, null, 19, "ion-item", [["class", "item item-block"]], null, null, null, item_ngfactory["b" /* View_Item_0 */], item_ngfactory["a" /* RenderType_Item */])), core["_30" /* ɵdid */](1, 1097728, null, 3, item["a" /* Item */], [util_form["a" /* Form */], config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */], [2, item_reorder["a" /* ItemReorder */]]], null, null), core["_52" /* ɵqud */](335544320, 5, { contentLabel: 0 }), core["_52" /* ɵqud */](603979776, 6, { _buttons: 1 }), core["_52" /* ɵqud */](603979776, 7, { _icons: 1 }), core["_30" /* ɵdid */](5, 16384, null, 0, item_content["a" /* ItemContent */], [], null, null), (_l()(), core["_55" /* ɵted */](-1, 2, ["\n                "])), (_l()(), core["_31" /* ɵeld */](7, 0, null, 1, 4, "ion-label", [["stacked", ""]], null, null, null, mark_required_ngfactory["b" /* View_CoreMarkRequiredComponent_0 */], mark_required_ngfactory["a" /* RenderType_CoreMarkRequiredComponent */])), core["_30" /* ɵdid */](8, 4308992, null, 0, mark_required["a" /* CoreMarkRequiredComponent */], [core["t" /* ElementRef */], translate_service["a" /* TranslateService */], utils_text["a" /* CoreTextUtilsProvider */], utils["a" /* CoreUtilsProvider */]], { coreMarkRequired: [0, "coreMarkRequired"] }, null), core["_30" /* ɵdid */](9, 16384, [[5, 4]], 0, label["a" /* Label */], [config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */], [8, null], [8, ""], [8, null], [8, null]], null, null), (_l()(), core["_55" /* ɵted */](10, 0, ["", ""])), core["_47" /* ɵpid */](131072, translate_pipe["a" /* TranslatePipe */], [translate_service["a" /* TranslateService */], core["j" /* ChangeDetectorRef */]]), (_l()(), core["_55" /* ɵted */](-1, 2, ["\n                "])), (_l()(), core["_31" /* ɵeld */](13, 0, null, 3, 5, "core-rich-text-editor", [["formControlName", "content"], ["item-content", ""], ["name", "content"]], [[2, "ng-untouched", null], [2, "ng-touched", null], [2, "ng-pristine", null], [2, "ng-dirty", null], [2, "ng-valid", null], [2, "ng-invalid", null], [2, "ng-pending", null]], null, null, rich_text_editor_ngfactory["b" /* View_CoreRichTextEditorComponent_0 */], rich_text_editor_ngfactory["a" /* RenderType_CoreRichTextEditorComponent */])), core["_30" /* ɵdid */](14, 1228800, null, 0, rich_text_editor["a" /* CoreRichTextEditorComponent */], [dom["a" /* CoreDomUtilsProvider */], url["a" /* CoreUrlUtilsProvider */], sites["a" /* CoreSitesProvider */], filepool["a" /* CoreFilepoolProvider */], [2, content["a" /* Content */]], core["t" /* ElementRef */], events["a" /* CoreEventsProvider */], utils["a" /* CoreUtilsProvider */], platform["a" /* Platform */]], { placeholder: [0, "placeholder"], control: [1, "control"], name: [2, "name"], component: [3, "component"], componentId: [4, "componentId"] }, null), core["_47" /* ɵpid */](131072, translate_pipe["a" /* TranslatePipe */], [translate_service["a" /* TranslateService */], core["j" /* ChangeDetectorRef */]]), core["_30" /* ɵdid */](16, 671744, null, 0, esm5_forms["f" /* FormControlName */], [[3, esm5_forms["b" /* ControlContainer */]], [8, null], [8, null], [8, null]], { name: [0, "name"] }, null), core["_50" /* ɵprd */](2048, null, esm5_forms["m" /* NgControl */], null, [esm5_forms["f" /* FormControlName */]]), core["_30" /* ɵdid */](18, 16384, null, 0, esm5_forms["n" /* NgControlStatus */], [esm5_forms["m" /* NgControl */]], null, null), (_l()(), core["_55" /* ɵted */](-1, 2, ["\n            "]))], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.textRequired; _ck(_v, 8, 0, currVal_0); var currVal_9 = core["_56" /* ɵunv */](_v, 14, 0, core["_44" /* ɵnov */](_v, 15).transform("addon.mod_workshop.submissioncontent")); var currVal_10 = _co.editForm.controls["content"]; var currVal_11 = "content"; var currVal_12 = _co.component; var currVal_13 = _co.componentId; _ck(_v, 14, 0, currVal_9, currVal_10, currVal_11, currVal_12, currVal_13); var currVal_14 = "content"; _ck(_v, 16, 0, currVal_14); }, function (_ck, _v) { var currVal_1 = core["_56" /* ɵunv */](_v, 10, 0, core["_44" /* ɵnov */](_v, 11).transform("addon.mod_workshop.submissioncontent")); _ck(_v, 10, 0, currVal_1); var currVal_2 = core["_44" /* ɵnov */](_v, 18).ngClassUntouched; var currVal_3 = core["_44" /* ɵnov */](_v, 18).ngClassTouched; var currVal_4 = core["_44" /* ɵnov */](_v, 18).ngClassPristine; var currVal_5 = core["_44" /* ɵnov */](_v, 18).ngClassDirty; var currVal_6 = core["_44" /* ɵnov */](_v, 18).ngClassValid; var currVal_7 = core["_44" /* ɵnov */](_v, 18).ngClassInvalid; var currVal_8 = core["_44" /* ɵnov */](_v, 18).ngClassPending; _ck(_v, 13, 0, currVal_2, currVal_3, currVal_4, currVal_5, currVal_6, currVal_7, currVal_8); }); }
+function View_AddonModWorkshopEditSubmissionPage_3(_l) { return core["_57" /* ɵvid */](0, [(_l()(), core["_31" /* ɵeld */](0, 0, null, null, 1, "core-attachments", [["allowOffline", "true"]], null, null, null, attachments_ngfactory["b" /* View_CoreAttachmentsComponent_0 */], attachments_ngfactory["a" /* RenderType_CoreAttachmentsComponent */])), core["_30" /* ɵdid */](1, 114688, null, 0, attachments["a" /* CoreAttachmentsComponent */], [app["a" /* CoreAppProvider */], dom["a" /* CoreDomUtilsProvider */], utils_text["a" /* CoreTextUtilsProvider */], fileuploader["a" /* CoreFileUploaderProvider */], translate_service["a" /* TranslateService */], providers_helper["a" /* CoreFileUploaderHelperProvider */]], { files: [0, "files"], maxSize: [1, "maxSize"], maxSubmissions: [2, "maxSubmissions"], component: [3, "component"], componentId: [4, "componentId"], allowOffline: [5, "allowOffline"], acceptedTypes: [6, "acceptedTypes"], required: [7, "required"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.submission.attachmentfiles; var currVal_1 = _co.workshop.maxbytes; var currVal_2 = _co.workshop.nattachments; var currVal_3 = _co.component; var currVal_4 = _co.workshop.cmid; var currVal_5 = "true"; var currVal_6 = _co.workshop.submissionfiletypes; var currVal_7 = _co.fileRequired; _ck(_v, 1, 0, currVal_0, currVal_1, currVal_2, currVal_3, currVal_4, currVal_5, currVal_6, currVal_7); }, null); }
+function View_AddonModWorkshopEditSubmissionPage_1(_l) { return core["_57" /* ɵvid */](0, [(_l()(), core["_31" /* ɵeld */](0, 0, null, null, 32, "form", [["ion-list", ""], ["novalidate", ""]], [[2, "ng-untouched", null], [2, "ng-touched", null], [2, "ng-pristine", null], [2, "ng-dirty", null], [2, "ng-valid", null], [2, "ng-invalid", null], [2, "ng-pending", null]], [[null, "submit"], [null, "reset"]], function (_v, en, $event) { var ad = true; if (("submit" === en)) {
+        var pd_0 = (core["_44" /* ɵnov */](_v, 2).onSubmit($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, button_ngfactory["b" /* View_Button_0 */], button_ngfactory["a" /* RenderType_Button */])), core["_30" /* ɵdid */](1, 1097728, [[1, 4]], 0, button_button["a" /* Button */], [[8, ""], config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */]], null, null), (_l()(), core["_55" /* ɵted */](-1, 0, ["\n                "])), (_l()(), core["_31" /* ɵeld */](3, 0, null, 0, 1, "ion-icon", [["name", "bookmark"], ["role", "img"]], [[2, "hide", null]], null, null, null, null)), core["_30" /* ɵdid */](4, 147456, null, 0, icon["a" /* Icon */], [config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */]], { name: [0, "name"] }, null), (_l()(), core["_55" /* ɵted */](-1, 0, ["\n            "]))], function (_ck, _v) { var currVal_1 = "bookmark"; _ck(_v, 4, 0, currVal_1); }, function (_ck, _v) { var currVal_0 = core["_44" /* ɵnov */](_v, 4)._hidden; _ck(_v, 3, 0, currVal_0); }); }
-function View_AddonModScormPlayerPage_2(_l) { return core["_57" /* ɵvid */](0, [(_l()(), core["_31" /* ɵeld */](0, 0, null, null, 1, "ion-spinner", [], [[2, "spinner-paused", null]], null, null, spinner_ngfactory["b" /* View_Spinner_0 */], spinner_ngfactory["a" /* RenderType_Spinner */])), core["_30" /* ɵdid */](1, 114688, null, 0, spinner["a" /* Spinner */], [config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, function (_ck, _v) { var currVal_0 = core["_44" /* ɵnov */](_v, 1)._paused; _ck(_v, 0, 0, currVal_0); }); }
-function View_AddonModScormPlayerPage_3(_l) { return core["_57" /* ɵvid */](0, [(_l()(), core["_31" /* ɵeld */](0, 0, null, null, 1, "core-iframe", [], null, null, null, iframe_ngfactory["b" /* View_CoreIframeComponent_0 */], iframe_ngfactory["a" /* RenderType_CoreIframeComponent */])), core["_30" /* ɵdid */](1, 638976, null, 0, iframe["a" /* CoreIframeComponent */], [logger["a" /* CoreLoggerProvider */], utils_iframe["a" /* CoreIframeUtilsProvider */], dom["a" /* CoreDomUtilsProvider */], platform_browser["c" /* DomSanitizer */]], { src: [0, "src"], iframeWidth: [1, "iframeWidth"], iframeHeight: [2, "iframeHeight"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.src; var currVal_1 = (_co.scorm.popup ? _co.scorm.width : undefined); var currVal_2 = (_co.scorm.popup ? _co.scorm.height : undefined); _ck(_v, 1, 0, currVal_0, currVal_1, currVal_2); }, null); }
-function View_AddonModScormPlayerPage_4(_l) { return core["_57" /* ɵvid */](0, [(_l()(), core["_31" /* ɵeld */](0, 0, null, null, 2, "p", [], null, null, null, null, null)), (_l()(), core["_55" /* ɵted */](1, null, ["", ""])), core["_47" /* ɵpid */](131072, translate_pipe["a" /* TranslatePipe */], [translate_service["a" /* TranslateService */], core["j" /* ChangeDetectorRef */]])], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = core["_56" /* ɵunv */](_v, 1, 0, core["_44" /* ɵnov */](_v, 2).transform(_co.errorMessage)); _ck(_v, 1, 0, currVal_0); }); }
-function View_AddonModScormPlayerPage_0(_l) { return core["_57" /* ɵvid */](0, [(_l()(), core["_31" /* ɵeld */](0, 0, null, null, 23, "ion-header", [], null, null, null, null, null)), core["_30" /* ɵdid */](1, 16384, null, 0, toolbar_header["a" /* Header */], [config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */], [2, view_controller["a" /* ViewController */]]], null, null), (_l()(), core["_55" /* ɵted */](-1, null, ["\n    "])), (_l()(), core["_31" /* ɵeld */](3, 0, null, null, 19, "ion-navbar", [["class", "toolbar"], ["core-back-button", ""]], [[8, "hidden", 0], [2, "statusbar-padding", null]], null, null, navbar_ngfactory["b" /* View_Navbar_0 */], navbar_ngfactory["a" /* RenderType_Navbar */])), core["_30" /* ɵdid */](4, 49152, null, 0, navbar["a" /* Navbar */], [app["a" /* App */], [2, view_controller["a" /* ViewController */]], [2, nav_controller["a" /* NavController */]], config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */]], null, null), core["_30" /* ɵdid */](5, 212992, null, 0, back_button["a" /* CoreBackButtonDirective */], [navbar["a" /* Navbar */], platform["a" /* Platform */], translate_service["a" /* TranslateService */], events["a" /* CoreEventsProvider */]], null, null), (_l()(), core["_55" /* ɵted */](-1, 3, ["\n        "])), (_l()(), core["_31" /* ɵeld */](7, 0, null, 3, 3, "ion-title", [], null, null, null, toolbar_title_ngfactory["b" /* View_ToolbarTitle_0 */], toolbar_title_ngfactory["a" /* RenderType_ToolbarTitle */])), core["_30" /* ɵdid */](8, 49152, null, 0, toolbar_title["a" /* ToolbarTitle */], [config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */], [2, toolbar["a" /* Toolbar */]], [2, navbar["a" /* Navbar */]]], null, null), (_l()(), core["_31" /* ɵeld */](9, 0, null, 0, 1, "core-format-text", [], null, null, null, null, null)), core["_30" /* ɵdid */](10, 540672, null, 0, format_text["a" /* CoreFormatTextDirective */], [core["t" /* ElementRef */], sites["a" /* CoreSitesProvider */], dom["a" /* CoreDomUtilsProvider */], utils_text["a" /* CoreTextUtilsProvider */], translate_service["a" /* TranslateService */], platform["a" /* Platform */], utils["a" /* CoreUtilsProvider */], url["a" /* CoreUrlUtilsProvider */], logger["a" /* CoreLoggerProvider */], filepool["a" /* CoreFilepoolProvider */], providers_app["a" /* CoreAppProvider */], providers_helper["a" /* CoreContentLinksHelperProvider */], [2, nav_controller["a" /* NavController */]], [2, content["a" /* Content */]], [2, split_view["a" /* CoreSplitViewComponent */]], utils_iframe["a" /* CoreIframeUtilsProvider */], events["a" /* CoreEventsProvider */]], { text: [0, "text"] }, null), (_l()(), core["_55" /* ɵted */](-1, 3, ["\n\n        "])), (_l()(), core["_31" /* ɵeld */](12, 0, null, 2, 9, "ion-buttons", [["end", ""]], null, null, null, null, null)), core["_30" /* ɵdid */](13, 16384, null, 1, toolbar_item["a" /* ToolbarItem */], [config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */], [2, toolbar["a" /* Toolbar */]], [2, navbar["a" /* Navbar */]]], null, null), core["_52" /* ɵqud */](603979776, 1, { _buttons: 1 }), (_l()(), core["_55" /* ɵted */](-1, null, ["\n            "])), (_l()(), core["_26" /* ɵand */](16777216, null, null, 1, null, View_AddonModScormPlayerPage_1)), core["_30" /* ɵdid */](17, 16384, null, 0, common["k" /* NgIf */], [core["_11" /* ViewContainerRef */], core["_6" /* TemplateRef */]], { ngIf: [0, "ngIf"] }, null), (_l()(), core["_55" /* ɵted */](-1, null, ["\n            "])), (_l()(), core["_26" /* ɵand */](16777216, null, null, 1, null, View_AddonModScormPlayerPage_2)), core["_30" /* ɵdid */](20, 16384, null, 0, common["k" /* NgIf */], [core["_11" /* ViewContainerRef */], core["_6" /* TemplateRef */]], { ngIf: [0, "ngIf"] }, null), (_l()(), core["_55" /* ɵted */](-1, null, ["\n        "])), (_l()(), core["_55" /* ɵted */](-1, 3, ["\n    "])), (_l()(), core["_55" /* ɵted */](-1, null, ["\n"])), (_l()(), core["_55" /* ɵted */](-1, null, ["\n"])), (_l()(), core["_31" /* ɵeld */](25, 0, null, null, 15, "ion-content", [], [[2, "statusbar-padding", null], [2, "has-refresher", null]], null, null, content_ngfactory["b" /* View_Content_0 */], content_ngfactory["a" /* RenderType_Content */])), core["_30" /* ɵdid */](26, 4374528, null, 0, content["a" /* Content */], [config["a" /* Config */], platform["a" /* Platform */], dom_controller["a" /* DomController */], core["t" /* ElementRef */], core["V" /* Renderer */], app["a" /* App */], keyboard["a" /* Keyboard */], core["M" /* NgZone */], [2, view_controller["a" /* ViewController */]], [2, nav_controller["a" /* NavController */]]], null, null), (_l()(), core["_55" /* ɵted */](-1, 1, ["\n    "])), (_l()(), core["_31" /* ɵeld */](28, 0, null, 1, 11, "core-loading", [], null, null, null, loading_ngfactory["b" /* View_CoreLoadingComponent_0 */], loading_ngfactory["a" /* RenderType_CoreLoadingComponent */])), core["_30" /* ɵdid */](29, 638976, null, 0, loading["a" /* CoreLoadingComponent */], [translate_service["a" /* TranslateService */], core["t" /* ElementRef */], events["a" /* CoreEventsProvider */], utils["a" /* CoreUtilsProvider */]], { hideUntil: [0, "hideUntil"] }, null), (_l()(), core["_55" /* ɵted */](-1, 0, ["\n        "])), (_l()(), core["_31" /* ɵeld */](31, 0, null, 0, 1, "core-navigation-bar", [], null, [[null, "action"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("action" === en)) {
-        var pd_0 = (_co.loadSco($event) !== false);
+    } if (("reset" === en)) {
+        var pd_1 = (core["_44" /* ɵnov */](_v, 2).onReset() !== false);
+        ad = (pd_1 && ad);
+    } return ad; }, null, null)), core["_30" /* ɵdid */](1, 16384, null, 0, esm5_forms["w" /* ɵbf */], [], null, null), core["_30" /* ɵdid */](2, 540672, null, 0, esm5_forms["h" /* FormGroupDirective */], [[8, null], [8, null]], { form: [0, "form"] }, null), core["_50" /* ɵprd */](2048, null, esm5_forms["b" /* ControlContainer */], null, [esm5_forms["h" /* FormGroupDirective */]]), core["_30" /* ɵdid */](4, 16384, null, 0, esm5_forms["o" /* NgControlStatusGroup */], [esm5_forms["b" /* ControlContainer */]], null, null), (_l()(), core["_55" /* ɵted */](-1, null, ["\n            "])), (_l()(), core["_31" /* ɵeld */](6, 0, null, null, 19, "ion-item", [["class", "item item-block"], ["text-wrap", ""]], null, null, null, item_ngfactory["b" /* View_Item_0 */], item_ngfactory["a" /* RenderType_Item */])), core["_30" /* ɵdid */](7, 1097728, null, 3, item["a" /* Item */], [util_form["a" /* Form */], config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */], [2, item_reorder["a" /* ItemReorder */]]], null, null), core["_52" /* ɵqud */](335544320, 2, { contentLabel: 0 }), core["_52" /* ɵqud */](603979776, 3, { _buttons: 1 }), core["_52" /* ɵqud */](603979776, 4, { _icons: 1 }), core["_30" /* ɵdid */](11, 16384, null, 0, item_content["a" /* ItemContent */], [], null, null), (_l()(), core["_55" /* ɵted */](-1, 2, ["\n                "])), (_l()(), core["_31" /* ɵeld */](13, 0, null, 1, 4, "ion-label", [["core-mark-required", "true"], ["stacked", ""]], null, null, null, mark_required_ngfactory["b" /* View_CoreMarkRequiredComponent_0 */], mark_required_ngfactory["a" /* RenderType_CoreMarkRequiredComponent */])), core["_30" /* ɵdid */](14, 4308992, null, 0, mark_required["a" /* CoreMarkRequiredComponent */], [core["t" /* ElementRef */], translate_service["a" /* TranslateService */], utils_text["a" /* CoreTextUtilsProvider */], utils["a" /* CoreUtilsProvider */]], { coreMarkRequired: [0, "coreMarkRequired"] }, null), core["_30" /* ɵdid */](15, 16384, [[2, 4]], 0, label["a" /* Label */], [config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */], [8, null], [8, ""], [8, null], [8, null]], null, null), (_l()(), core["_55" /* ɵted */](16, 0, ["", ""])), core["_47" /* ɵpid */](131072, translate_pipe["a" /* TranslatePipe */], [translate_service["a" /* TranslateService */], core["j" /* ChangeDetectorRef */]]), (_l()(), core["_55" /* ɵted */](-1, 2, ["\n                "])), (_l()(), core["_31" /* ɵeld */](19, 0, null, 3, 5, "ion-input", [["formControlName", "title"], ["name", "title"], ["type", "text"]], [[2, "ng-untouched", null], [2, "ng-touched", null], [2, "ng-pristine", null], [2, "ng-dirty", null], [2, "ng-valid", null], [2, "ng-invalid", null], [2, "ng-pending", null]], null, null, input_ngfactory["b" /* View_TextInput_0 */], input_ngfactory["a" /* RenderType_TextInput */])), core["_30" /* ɵdid */](20, 671744, null, 0, esm5_forms["f" /* FormControlName */], [[3, esm5_forms["b" /* ControlContainer */]], [8, null], [8, null], [8, null]], { name: [0, "name"] }, null), core["_50" /* ɵprd */](2048, null, esm5_forms["m" /* NgControl */], null, [esm5_forms["f" /* FormControlName */]]), core["_30" /* ɵdid */](22, 16384, null, 0, esm5_forms["n" /* NgControlStatus */], [esm5_forms["m" /* NgControl */]], null, null), core["_30" /* ɵdid */](23, 5423104, null, 0, input["a" /* TextInput */], [config["a" /* Config */], platform["a" /* Platform */], util_form["a" /* Form */], app_app["a" /* App */], core["t" /* ElementRef */], core["V" /* Renderer */], [2, content["a" /* Content */]], [2, item["a" /* Item */]], [2, esm5_forms["m" /* NgControl */]], dom_controller["a" /* DomController */]], { type: [0, "type"], placeholder: [1, "placeholder"] }, null), core["_47" /* ɵpid */](131072, translate_pipe["a" /* TranslatePipe */], [translate_service["a" /* TranslateService */], core["j" /* ChangeDetectorRef */]]), (_l()(), core["_55" /* ɵted */](-1, 2, ["\n            "])), (_l()(), core["_55" /* ɵted */](-1, null, ["\n\n            "])), (_l()(), core["_26" /* ɵand */](16777216, null, null, 1, null, View_AddonModWorkshopEditSubmissionPage_2)), core["_30" /* ɵdid */](28, 16384, null, 0, common["k" /* NgIf */], [core["_11" /* ViewContainerRef */], core["_6" /* TemplateRef */]], { ngIf: [0, "ngIf"] }, null), (_l()(), core["_55" /* ɵted */](-1, null, ["\n\n            "])), (_l()(), core["_26" /* ɵand */](16777216, null, null, 1, null, View_AddonModWorkshopEditSubmissionPage_3)), core["_30" /* ɵdid */](31, 16384, null, 0, common["k" /* NgIf */], [core["_11" /* ViewContainerRef */], core["_6" /* TemplateRef */]], { ngIf: [0, "ngIf"] }, null), (_l()(), core["_55" /* ɵted */](-1, null, ["\n        "]))], function (_ck, _v) { var _co = _v.component; var currVal_7 = _co.editForm; _ck(_v, 2, 0, currVal_7); var currVal_8 = "true"; _ck(_v, 14, 0, currVal_8); var currVal_17 = "title"; _ck(_v, 20, 0, currVal_17); var currVal_18 = "text"; var currVal_19 = core["_56" /* ɵunv */](_v, 23, 1, core["_44" /* ɵnov */](_v, 24).transform("addon.mod_workshop.submissiontitle")); _ck(_v, 23, 0, currVal_18, currVal_19); var currVal_20 = _co.textAvailable; _ck(_v, 28, 0, currVal_20); var currVal_21 = _co.fileAvailable; _ck(_v, 31, 0, currVal_21); }, function (_ck, _v) { var currVal_0 = core["_44" /* ɵnov */](_v, 4).ngClassUntouched; var currVal_1 = core["_44" /* ɵnov */](_v, 4).ngClassTouched; var currVal_2 = core["_44" /* ɵnov */](_v, 4).ngClassPristine; var currVal_3 = core["_44" /* ɵnov */](_v, 4).ngClassDirty; var currVal_4 = core["_44" /* ɵnov */](_v, 4).ngClassValid; var currVal_5 = core["_44" /* ɵnov */](_v, 4).ngClassInvalid; var currVal_6 = core["_44" /* ɵnov */](_v, 4).ngClassPending; _ck(_v, 0, 0, currVal_0, currVal_1, currVal_2, currVal_3, currVal_4, currVal_5, currVal_6); var currVal_9 = core["_56" /* ɵunv */](_v, 16, 0, core["_44" /* ɵnov */](_v, 17).transform("addon.mod_workshop.submissiontitle")); _ck(_v, 16, 0, currVal_9); var currVal_10 = core["_44" /* ɵnov */](_v, 22).ngClassUntouched; var currVal_11 = core["_44" /* ɵnov */](_v, 22).ngClassTouched; var currVal_12 = core["_44" /* ɵnov */](_v, 22).ngClassPristine; var currVal_13 = core["_44" /* ɵnov */](_v, 22).ngClassDirty; var currVal_14 = core["_44" /* ɵnov */](_v, 22).ngClassValid; var currVal_15 = core["_44" /* ɵnov */](_v, 22).ngClassInvalid; var currVal_16 = core["_44" /* ɵnov */](_v, 22).ngClassPending; _ck(_v, 19, 0, currVal_10, currVal_11, currVal_12, currVal_13, currVal_14, currVal_15, currVal_16); }); }
+function View_AddonModWorkshopEditSubmissionPage_0(_l) { return core["_57" /* ɵvid */](0, [(_l()(), core["_31" /* ɵeld */](0, 0, null, null, 23, "ion-header", [], null, null, null, null, null)), core["_30" /* ɵdid */](1, 16384, null, 0, toolbar_header["a" /* Header */], [config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */], [2, view_controller["a" /* ViewController */]]], null, null), (_l()(), core["_55" /* ɵted */](-1, null, ["\n    "])), (_l()(), core["_31" /* ɵeld */](3, 0, null, null, 19, "ion-navbar", [["class", "toolbar"], ["core-back-button", ""]], [[8, "hidden", 0], [2, "statusbar-padding", null]], null, null, navbar_ngfactory["b" /* View_Navbar_0 */], navbar_ngfactory["a" /* RenderType_Navbar */])), core["_30" /* ɵdid */](4, 49152, null, 0, navbar["a" /* Navbar */], [app_app["a" /* App */], [2, view_controller["a" /* ViewController */]], [2, nav_controller["a" /* NavController */]], config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */]], null, null), core["_30" /* ɵdid */](5, 212992, null, 0, back_button["a" /* CoreBackButtonDirective */], [navbar["a" /* Navbar */], platform["a" /* Platform */], translate_service["a" /* TranslateService */], events["a" /* CoreEventsProvider */]], null, null), (_l()(), core["_55" /* ɵted */](-1, 3, ["\n        "])), (_l()(), core["_31" /* ɵeld */](7, 0, null, 3, 3, "ion-title", [], null, null, null, toolbar_title_ngfactory["b" /* View_ToolbarTitle_0 */], toolbar_title_ngfactory["a" /* RenderType_ToolbarTitle */])), core["_30" /* ɵdid */](8, 49152, null, 0, toolbar_title["a" /* ToolbarTitle */], [config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */], [2, toolbar["a" /* Toolbar */]], [2, navbar["a" /* Navbar */]]], null, null), (_l()(), core["_55" /* ɵted */](9, 0, ["", ""])), core["_47" /* ɵpid */](131072, translate_pipe["a" /* TranslatePipe */], [translate_service["a" /* TranslateService */], core["j" /* ChangeDetectorRef */]]), (_l()(), core["_55" /* ɵted */](-1, 3, ["\n        "])), (_l()(), core["_31" /* ɵeld */](12, 0, null, 2, 9, "ion-buttons", [["end", ""]], null, null, null, null, null)), core["_30" /* ɵdid */](13, 16384, null, 1, toolbar_item["a" /* ToolbarItem */], [config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */], [2, toolbar["a" /* Toolbar */]], [2, navbar["a" /* Navbar */]]], null, null), core["_52" /* ɵqud */](603979776, 1, { _buttons: 1 }), (_l()(), core["_55" /* ɵted */](-1, null, ["\n            "])), (_l()(), core["_31" /* ɵeld */](16, 0, null, null, 4, "button", [["clear", ""], ["ion-button", ""]], [[1, "aria-label", 0]], [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
+        var pd_0 = (_co.save() !== false);
         ad = (pd_0 && ad);
-    } return ad; }, navigation_bar_ngfactory["b" /* View_CoreNavigationBarComponent_0 */], navigation_bar_ngfactory["a" /* RenderType_CoreNavigationBarComponent */])), core["_30" /* ɵdid */](32, 49152, null, 0, navigation_bar["a" /* CoreNavigationBarComponent */], [utils_text["a" /* CoreTextUtilsProvider */]], { previous: [0, "previous"], next: [1, "next"] }, { action: "action" }), (_l()(), core["_55" /* ɵted */](-1, 0, ["\n        "])), (_l()(), core["_26" /* ɵand */](16777216, null, 0, 1, null, View_AddonModScormPlayerPage_3)), core["_30" /* ɵdid */](35, 16384, null, 0, common["k" /* NgIf */], [core["_11" /* ViewContainerRef */], core["_6" /* TemplateRef */]], { ngIf: [0, "ngIf"] }, null), (_l()(), core["_55" /* ɵted */](-1, 0, ["\n        "])), (_l()(), core["_26" /* ɵand */](16777216, null, 0, 1, null, View_AddonModScormPlayerPage_4)), core["_30" /* ɵdid */](38, 16384, null, 0, common["k" /* NgIf */], [core["_11" /* ViewContainerRef */], core["_6" /* TemplateRef */]], { ngIf: [0, "ngIf"] }, null), (_l()(), core["_55" /* ɵted */](-1, 0, ["\n    "])), (_l()(), core["_55" /* ɵted */](-1, 1, ["\n"])), (_l()(), core["_55" /* ɵted */](-1, null, ["\n"]))], function (_ck, _v) { var _co = _v.component; _ck(_v, 5, 0); var currVal_2 = _co.title; _ck(_v, 10, 0, currVal_2); var currVal_3 = (((_co.showToc && !_co.loadingToc) && _co.toc) && _co.toc.length); _ck(_v, 17, 0, currVal_3); var currVal_4 = (_co.showToc && _co.loadingToc); _ck(_v, 20, 0, currVal_4); var currVal_7 = _co.loaded; _ck(_v, 29, 0, currVal_7); var currVal_8 = _co.previousSco; var currVal_9 = _co.nextSco; _ck(_v, 32, 0, currVal_8, currVal_9); var currVal_10 = (_co.loaded && _co.src); _ck(_v, 35, 0, currVal_10); var currVal_11 = (!_co.src && _co.errorMessage); _ck(_v, 38, 0, currVal_11); }, function (_ck, _v) { var currVal_0 = core["_44" /* ɵnov */](_v, 4)._hidden; var currVal_1 = core["_44" /* ɵnov */](_v, 4)._sbPadding; _ck(_v, 3, 0, currVal_0, currVal_1); var currVal_5 = core["_44" /* ɵnov */](_v, 26).statusbarPadding; var currVal_6 = core["_44" /* ɵnov */](_v, 26)._hasRefresher; _ck(_v, 25, 0, currVal_5, currVal_6); }); }
-function View_AddonModScormPlayerPage_Host_0(_l) { return core["_57" /* ɵvid */](0, [(_l()(), core["_31" /* ɵeld */](0, 0, null, null, 1, "page-addon-mod-scorm-player", [], null, null, null, View_AddonModScormPlayerPage_0, RenderType_AddonModScormPlayerPage)), core["_30" /* ɵdid */](1, 245760, null, 0, player_AddonModScormPlayerPage, [nav_params["a" /* NavParams */], popover_controller["a" /* PopoverController */], events["a" /* CoreEventsProvider */], sites["a" /* CoreSitesProvider */], sync["a" /* CoreSyncProvider */], dom["a" /* CoreDomUtilsProvider */], time["a" /* CoreTimeUtilsProvider */], providers_scorm["a" /* AddonModScormProvider */], helper["a" /* AddonModScormHelperProvider */], scorm_sync["a" /* AddonModScormSyncProvider */]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
-var AddonModScormPlayerPageNgFactory = core["_27" /* ɵccf */]("page-addon-mod-scorm-player", player_AddonModScormPlayerPage, View_AddonModScormPlayerPage_Host_0, {}, {}, []);
+    } return ad; }, button_ngfactory["b" /* View_Button_0 */], button_ngfactory["a" /* RenderType_Button */])), core["_30" /* ɵdid */](17, 1097728, [[1, 4]], 0, button_button["a" /* Button */], [[8, ""], config["a" /* Config */], core["t" /* ElementRef */], core["V" /* Renderer */]], { clear: [0, "clear"] }, null), core["_47" /* ɵpid */](131072, translate_pipe["a" /* TranslatePipe */], [translate_service["a" /* TranslateService */], core["j" /* ChangeDetectorRef */]]), (_l()(), core["_55" /* ɵted */](19, 0, ["\n                ", "\n            "])), core["_47" /* ɵpid */](131072, translate_pipe["a" /* TranslatePipe */], [translate_service["a" /* TranslateService */], core["j" /* ChangeDetectorRef */]]), (_l()(), core["_55" /* ɵted */](-1, null, ["\n        "])), (_l()(), core["_55" /* ɵted */](-1, 3, ["\n    "])), (_l()(), core["_55" /* ɵted */](-1, null, ["\n"])), (_l()(), core["_55" /* ɵted */](-1, null, ["\n"])), (_l()(), core["_31" /* ɵeld */](25, 0, null, null, 17, "ion-content", [], [[2, "statusbar-padding", null], [2, "has-refresher", null]], null, null, content_ngfactory["b" /* View_Content_0 */], content_ngfactory["a" /* RenderType_Content */])), core["_30" /* ɵdid */](26, 4374528, null, 0, content["a" /* Content */], [config["a" /* Config */], platform["a" /* Platform */], dom_controller["a" /* DomController */], core["t" /* ElementRef */], core["V" /* Renderer */], app_app["a" /* App */], keyboard["a" /* Keyboard */], core["M" /* NgZone */], [2, view_controller["a" /* ViewController */]], [2, nav_controller["a" /* NavController */]]], null, null), (_l()(), core["_55" /* ɵted */](-1, 1, ["\n    "])), (_l()(), core["_31" /* ɵeld */](28, 0, null, 2, 6, "ion-refresher", [], [[2, "refresher-active", null], [4, "top", null]], [[null, "ionRefresh"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("ionRefresh" === en)) {
+        var pd_0 = (_co.refreshSubmission($event) !== false);
+        ad = (pd_0 && ad);
+    } return ad; }, null, null)), core["_30" /* ɵdid */](29, 212992, null, 0, refresher["a" /* Refresher */], [platform["a" /* Platform */], content["a" /* Content */], core["M" /* NgZone */], gesture_controller["l" /* GestureController */]], { enabled: [0, "enabled"] }, { ionRefresh: "ionRefresh" }), (_l()(), core["_55" /* ɵted */](-1, null, ["\n        "])), (_l()(), core["_31" /* ɵeld */](31, 0, null, null, 2, "ion-refresher-content", [], [[1, "state", 0]], null, null, refresher_content_ngfactory["b" /* View_RefresherContent_0 */], refresher_content_ngfactory["a" /* RenderType_RefresherContent */])), core["_30" /* ɵdid */](32, 114688, null, 0, refresher_content["a" /* RefresherContent */], [refresher["a" /* Refresher */], config["a" /* Config */]], { pullingText: [0, "pullingText"] }, null), core["_47" /* ɵpid */](131072, translate_pipe["a" /* TranslatePipe */], [translate_service["a" /* TranslateService */], core["j" /* ChangeDetectorRef */]]), (_l()(), core["_55" /* ɵted */](-1, null, ["\n    "])), (_l()(), core["_55" /* ɵted */](-1, 1, ["\n    "])), (_l()(), core["_31" /* ɵeld */](36, 0, null, 1, 5, "core-loading", [], null, null, null, loading_ngfactory["b" /* View_CoreLoadingComponent_0 */], loading_ngfactory["a" /* RenderType_CoreLoadingComponent */])), core["_30" /* ɵdid */](37, 638976, null, 0, loading["a" /* CoreLoadingComponent */], [translate_service["a" /* TranslateService */], core["t" /* ElementRef */], events["a" /* CoreEventsProvider */], utils["a" /* CoreUtilsProvider */]], { hideUntil: [0, "hideUntil"] }, null), (_l()(), core["_55" /* ɵted */](-1, 0, ["\n        "])), (_l()(), core["_26" /* ɵand */](16777216, null, 0, 1, null, View_AddonModWorkshopEditSubmissionPage_1)), core["_30" /* ɵdid */](40, 16384, null, 0, common["k" /* NgIf */], [core["_11" /* ViewContainerRef */], core["_6" /* TemplateRef */]], { ngIf: [0, "ngIf"] }, null), (_l()(), core["_55" /* ɵted */](-1, 0, ["\n    "])), (_l()(), core["_55" /* ɵted */](-1, 1, ["\n"])), (_l()(), core["_55" /* ɵted */](-1, null, ["\n"]))], function (_ck, _v) { var _co = _v.component; _ck(_v, 5, 0); var currVal_4 = ""; _ck(_v, 17, 0, currVal_4); var currVal_10 = _co.loaded; _ck(_v, 29, 0, currVal_10); var currVal_12 = core["_34" /* ɵinlineInterpolate */](1, "", core["_56" /* ɵunv */](_v, 32, 0, core["_44" /* ɵnov */](_v, 33).transform("core.pulltorefresh")), ""); _ck(_v, 32, 0, currVal_12); var currVal_13 = _co.loaded; _ck(_v, 37, 0, currVal_13); var currVal_14 = _co.workshop; _ck(_v, 40, 0, currVal_14); }, function (_ck, _v) { var currVal_0 = core["_44" /* ɵnov */](_v, 4)._hidden; var currVal_1 = core["_44" /* ɵnov */](_v, 4)._sbPadding; _ck(_v, 3, 0, currVal_0, currVal_1); var currVal_2 = core["_56" /* ɵunv */](_v, 9, 0, core["_44" /* ɵnov */](_v, 10).transform("addon.mod_workshop.editsubmission")); _ck(_v, 9, 0, currVal_2); var currVal_3 = core["_56" /* ɵunv */](_v, 16, 0, core["_44" /* ɵnov */](_v, 18).transform("core.save")); _ck(_v, 16, 0, currVal_3); var currVal_5 = core["_56" /* ɵunv */](_v, 19, 0, core["_44" /* ɵnov */](_v, 20).transform("core.save")); _ck(_v, 19, 0, currVal_5); var currVal_6 = core["_44" /* ɵnov */](_v, 26).statusbarPadding; var currVal_7 = core["_44" /* ɵnov */](_v, 26)._hasRefresher; _ck(_v, 25, 0, currVal_6, currVal_7); var currVal_8 = (core["_44" /* ɵnov */](_v, 29).state !== "inactive"); var currVal_9 = core["_44" /* ɵnov */](_v, 29)._top; _ck(_v, 28, 0, currVal_8, currVal_9); var currVal_11 = core["_44" /* ɵnov */](_v, 32).r.state; _ck(_v, 31, 0, currVal_11); }); }
+function View_AddonModWorkshopEditSubmissionPage_Host_0(_l) { return core["_57" /* ɵvid */](0, [(_l()(), core["_31" /* ɵeld */](0, 0, null, null, 1, "page-addon-mod-workshop-edit-submission", [], null, null, null, View_AddonModWorkshopEditSubmissionPage_0, RenderType_AddonModWorkshopEditSubmissionPage)), core["_30" /* ɵdid */](1, 245760, null, 0, edit_submission_AddonModWorkshopEditSubmissionPage, [nav_params["a" /* NavParams */], sites["a" /* CoreSitesProvider */], fileuploader["a" /* CoreFileUploaderProvider */], workshop["a" /* AddonModWorkshopProvider */], offline["a" /* AddonModWorkshopOfflineProvider */], helper["a" /* AddonModWorkshopHelperProvider */], nav_controller["a" /* NavController */], file_session["a" /* CoreFileSessionProvider */], sync["a" /* CoreSyncProvider */], utils_text["a" /* CoreTextUtilsProvider */], dom["a" /* CoreDomUtilsProvider */], esm5_forms["d" /* FormBuilder */], translate_service["a" /* TranslateService */], events["a" /* CoreEventsProvider */]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+var AddonModWorkshopEditSubmissionPageNgFactory = core["_27" /* ɵccf */]("page-addon-mod-workshop-edit-submission", edit_submission_AddonModWorkshopEditSubmissionPage, View_AddonModWorkshopEditSubmissionPage_Host_0, {}, {}, []);
 
-//# sourceMappingURL=player.ngfactory.js.map
-// EXTERNAL MODULE: ./node_modules/@angular/forms/esm5/forms.js
-var esm5_forms = __webpack_require__(18);
-
+//# sourceMappingURL=edit-submission.ngfactory.js.map
 // EXTERNAL MODULE: ./node_modules/@ngx-translate/core/src/translate.loader.js
-var translate_loader = __webpack_require__(320);
+var translate_loader = __webpack_require__(348);
 
 // EXTERNAL MODULE: ./node_modules/@ngx-translate/core/src/translate.compiler.js
-var translate_compiler = __webpack_require__(321);
+var translate_compiler = __webpack_require__(349);
 
 // EXTERNAL MODULE: ./node_modules/@ngx-translate/core/src/translate.parser.js
-var translate_parser = __webpack_require__(323);
+var translate_parser = __webpack_require__(351);
 
 // EXTERNAL MODULE: ./node_modules/@ngx-translate/core/src/missing-translation-handler.js
-var missing_translation_handler = __webpack_require__(322);
+var missing_translation_handler = __webpack_require__(350);
 
 // EXTERNAL MODULE: ./node_modules/@ngx-translate/core/src/translate.store.js
-var translate_store = __webpack_require__(415);
+var translate_store = __webpack_require__(454);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/module.js
-var ionic_angular_module = __webpack_require__(631);
+var ionic_angular_module = __webpack_require__(686);
 
-// EXTERNAL MODULE: ./src/pipes/pipes.module.ts + 1 modules
-var pipes_module = __webpack_require__(109);
+// EXTERNAL MODULE: ./src/pipes/pipes.module.ts + 2 modules
+var pipes_module = __webpack_require__(105);
 
 // EXTERNAL MODULE: ./node_modules/ionic-angular/util/module-loader.js
-var module_loader = __webpack_require__(237);
+var module_loader = __webpack_require__(260);
 
-// CONCATENATED MODULE: ./src/addon/mod/scorm/pages/player/player.module.ngfactory.js
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddonModScormPlayerPageModuleNgFactory", function() { return AddonModScormPlayerPageModuleNgFactory; });
+// CONCATENATED MODULE: ./src/addon/mod/workshop/pages/edit-submission/edit-submission.module.ngfactory.js
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddonModWorkshopEditSubmissionPageModuleNgFactory", function() { return AddonModWorkshopEditSubmissionPageModuleNgFactory; });
 /**
  * @fileoverview This file was generated by the Angular template compiler. Do not edit.
  *
@@ -1627,9 +817,10 @@ var module_loader = __webpack_require__(237);
 
 
 
-var AddonModScormPlayerPageModuleNgFactory = core["_28" /* ɵcmf */](player_module_AddonModScormPlayerPageModule, [], function (_l) { return core["_40" /* ɵmod */]([core["_41" /* ɵmpd */](512, core["o" /* ComponentFactoryResolver */], core["_21" /* ɵCodegenComponentFactoryResolver */], [[8, [action_sheet_component_ngfactory["a" /* ActionSheetCmpNgFactory */], alert_component_ngfactory["a" /* AlertCmpNgFactory */], app_root_ngfactory["a" /* IonicAppNgFactory */], loading_component_ngfactory["a" /* LoadingCmpNgFactory */], modal_component_ngfactory["a" /* ModalCmpNgFactory */], picker_component_ngfactory["a" /* PickerCmpNgFactory */], popover_component_ngfactory["a" /* PopoverCmpNgFactory */], select_popover_component_ngfactory["a" /* SelectPopoverNgFactory */], toast_component_ngfactory["a" /* ToastCmpNgFactory */], context_menu_popover_ngfactory["a" /* CoreContextMenuPopoverComponentNgFactory */], course_picker_menu_popover_ngfactory["a" /* CoreCoursePickerMenuPopoverComponentNgFactory */], recaptchamodal_ngfactory["a" /* CoreRecaptchaModalComponentNgFactory */], AddonModScormPlayerPageNgFactory]], [3, core["o" /* ComponentFactoryResolver */]], core["K" /* NgModuleRef */]]), core["_41" /* ɵmpd */](4608, common["m" /* NgLocalization */], common["l" /* NgLocaleLocalization */], [core["G" /* LOCALE_ID */], [2, common["v" /* ɵa */]]]), core["_41" /* ɵmpd */](4608, esm5_forms["x" /* ɵi */], esm5_forms["x" /* ɵi */], []), core["_41" /* ɵmpd */](4608, esm5_forms["d" /* FormBuilder */], esm5_forms["d" /* FormBuilder */], []), core["_41" /* ɵmpd */](4608, translate_loader["b" /* TranslateLoader */], translate_loader["a" /* TranslateFakeLoader */], []), core["_41" /* ɵmpd */](4608, translate_compiler["a" /* TranslateCompiler */], translate_compiler["b" /* TranslateFakeCompiler */], []), core["_41" /* ɵmpd */](4608, translate_parser["b" /* TranslateParser */], translate_parser["a" /* TranslateDefaultParser */], []), core["_41" /* ɵmpd */](4608, missing_translation_handler["b" /* MissingTranslationHandler */], missing_translation_handler["a" /* FakeMissingTranslationHandler */], []), core["_41" /* ɵmpd */](4608, translate_service["a" /* TranslateService */], translate_service["a" /* TranslateService */], [translate_store["a" /* TranslateStore */], translate_loader["b" /* TranslateLoader */], translate_compiler["a" /* TranslateCompiler */], translate_parser["b" /* TranslateParser */], missing_translation_handler["b" /* MissingTranslationHandler */], translate_service["b" /* USE_DEFAULT_LANG */], translate_service["c" /* USE_STORE */]]), core["_41" /* ɵmpd */](512, common["b" /* CommonModule */], common["b" /* CommonModule */], []), core["_41" /* ɵmpd */](512, esm5_forms["v" /* ɵba */], esm5_forms["v" /* ɵba */], []), core["_41" /* ɵmpd */](512, esm5_forms["i" /* FormsModule */], esm5_forms["i" /* FormsModule */], []), core["_41" /* ɵmpd */](512, esm5_forms["s" /* ReactiveFormsModule */], esm5_forms["s" /* ReactiveFormsModule */], []), core["_41" /* ɵmpd */](512, ionic_angular_module["a" /* IonicModule */], ionic_angular_module["a" /* IonicModule */], []), core["_41" /* ɵmpd */](512, _ngx_translate_core["b" /* TranslateModule */], _ngx_translate_core["b" /* TranslateModule */], []), core["_41" /* ɵmpd */](512, directives_module["a" /* CoreDirectivesModule */], directives_module["a" /* CoreDirectivesModule */], []), core["_41" /* ɵmpd */](512, pipes_module["a" /* CorePipesModule */], pipes_module["a" /* CorePipesModule */], []), core["_41" /* ɵmpd */](512, components_module["a" /* CoreComponentsModule */], components_module["a" /* CoreComponentsModule */], []), core["_41" /* ɵmpd */](512, ionic_angular_module["b" /* IonicPageModule */], ionic_angular_module["b" /* IonicPageModule */], []), core["_41" /* ɵmpd */](512, player_module_AddonModScormPlayerPageModule, player_module_AddonModScormPlayerPageModule, []), core["_41" /* ɵmpd */](256, translate_service["c" /* USE_STORE */], undefined, []), core["_41" /* ɵmpd */](256, translate_service["b" /* USE_DEFAULT_LANG */], undefined, []), core["_41" /* ɵmpd */](256, module_loader["a" /* LAZY_LOADED_TOKEN */], player_AddonModScormPlayerPage, [])]); });
 
-//# sourceMappingURL=player.module.ngfactory.js.map
+var AddonModWorkshopEditSubmissionPageModuleNgFactory = core["_28" /* ɵcmf */](edit_submission_module_AddonModWorkshopEditSubmissionPageModule, [], function (_l) { return core["_40" /* ɵmod */]([core["_41" /* ɵmpd */](512, core["o" /* ComponentFactoryResolver */], core["_21" /* ɵCodegenComponentFactoryResolver */], [[8, [action_sheet_component_ngfactory["a" /* ActionSheetCmpNgFactory */], alert_component_ngfactory["a" /* AlertCmpNgFactory */], app_root_ngfactory["a" /* IonicAppNgFactory */], loading_component_ngfactory["a" /* LoadingCmpNgFactory */], modal_component_ngfactory["a" /* ModalCmpNgFactory */], picker_component_ngfactory["a" /* PickerCmpNgFactory */], popover_component_ngfactory["a" /* PopoverCmpNgFactory */], select_popover_component_ngfactory["a" /* SelectPopoverNgFactory */], toast_component_ngfactory["a" /* ToastCmpNgFactory */], context_menu_popover_ngfactory["a" /* CoreContextMenuPopoverComponentNgFactory */], course_picker_menu_popover_ngfactory["a" /* CoreCoursePickerMenuPopoverComponentNgFactory */], recaptchamodal_ngfactory["a" /* CoreRecaptchaModalComponentNgFactory */], bs_tooltip_ngfactory["a" /* CoreBSTooltipComponentNgFactory */], AddonModWorkshopEditSubmissionPageNgFactory]], [3, core["o" /* ComponentFactoryResolver */]], core["K" /* NgModuleRef */]]), core["_41" /* ɵmpd */](4608, common["m" /* NgLocalization */], common["l" /* NgLocaleLocalization */], [core["G" /* LOCALE_ID */], [2, common["v" /* ɵa */]]]), core["_41" /* ɵmpd */](4608, esm5_forms["x" /* ɵi */], esm5_forms["x" /* ɵi */], []), core["_41" /* ɵmpd */](4608, esm5_forms["d" /* FormBuilder */], esm5_forms["d" /* FormBuilder */], []), core["_41" /* ɵmpd */](4608, translate_loader["b" /* TranslateLoader */], translate_loader["a" /* TranslateFakeLoader */], []), core["_41" /* ɵmpd */](4608, translate_compiler["a" /* TranslateCompiler */], translate_compiler["b" /* TranslateFakeCompiler */], []), core["_41" /* ɵmpd */](4608, translate_parser["b" /* TranslateParser */], translate_parser["a" /* TranslateDefaultParser */], []), core["_41" /* ɵmpd */](4608, missing_translation_handler["b" /* MissingTranslationHandler */], missing_translation_handler["a" /* FakeMissingTranslationHandler */], []), core["_41" /* ɵmpd */](4608, translate_service["a" /* TranslateService */], translate_service["a" /* TranslateService */], [translate_store["a" /* TranslateStore */], translate_loader["b" /* TranslateLoader */], translate_compiler["a" /* TranslateCompiler */], translate_parser["b" /* TranslateParser */], missing_translation_handler["b" /* MissingTranslationHandler */], translate_service["b" /* USE_DEFAULT_LANG */], translate_service["c" /* USE_STORE */]]), core["_41" /* ɵmpd */](512, directives_module["a" /* CoreDirectivesModule */], directives_module["a" /* CoreDirectivesModule */], []), core["_41" /* ɵmpd */](512, common["b" /* CommonModule */], common["b" /* CommonModule */], []), core["_41" /* ɵmpd */](512, esm5_forms["v" /* ɵba */], esm5_forms["v" /* ɵba */], []), core["_41" /* ɵmpd */](512, esm5_forms["i" /* FormsModule */], esm5_forms["i" /* FormsModule */], []), core["_41" /* ɵmpd */](512, esm5_forms["s" /* ReactiveFormsModule */], esm5_forms["s" /* ReactiveFormsModule */], []), core["_41" /* ɵmpd */](512, ionic_angular_module["a" /* IonicModule */], ionic_angular_module["a" /* IonicModule */], []), core["_41" /* ɵmpd */](512, _ngx_translate_core["b" /* TranslateModule */], _ngx_translate_core["b" /* TranslateModule */], []), core["_41" /* ɵmpd */](512, pipes_module["a" /* CorePipesModule */], pipes_module["a" /* CorePipesModule */], []), core["_41" /* ɵmpd */](512, components_module["a" /* CoreComponentsModule */], components_module["a" /* CoreComponentsModule */], []), core["_41" /* ɵmpd */](512, ionic_angular_module["b" /* IonicPageModule */], ionic_angular_module["b" /* IonicPageModule */], []), core["_41" /* ɵmpd */](512, edit_submission_module_AddonModWorkshopEditSubmissionPageModule, edit_submission_module_AddonModWorkshopEditSubmissionPageModule, []), core["_41" /* ɵmpd */](256, translate_service["c" /* USE_STORE */], undefined, []), core["_41" /* ɵmpd */](256, translate_service["b" /* USE_DEFAULT_LANG */], undefined, []), core["_41" /* ɵmpd */](256, module_loader["a" /* LAZY_LOADED_TOKEN */], edit_submission_AddonModWorkshopEditSubmissionPage, [])]); });
+
+//# sourceMappingURL=edit-submission.module.ngfactory.js.map
 
 /***/ })
 
