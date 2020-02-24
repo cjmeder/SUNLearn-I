@@ -2,8 +2,8 @@
     "app_id": "za.ac.sun.learn.mobile",
     "appname": "SUNLearn Mobile",
     "desktopappname": "SUNLearn Desktop",
-    "versioncode": 3710,
-    "versionname": "3.7.1",
+    "versioncode": 3800,
+    "versionname": "3.8.0",
     "cache_update_frequency_usually": 420000,
     "cache_update_frequency_often": 1200000,
     "cache_update_frequency_sometimes": 3600000,
@@ -37,6 +37,7 @@
         "kn": "ಕನ್ನಡ",
         "ko": "한국어",
         "lt": "Lietuvių",
+        "lv": "Latviešu",
         "mr": "मराठी",
         "nl": "Nederlands",
         "no": "Norsk - bokmål",
@@ -56,28 +57,34 @@
     },
     "wsservice": "moodle_mobile_app",
     "wsextservice": "local_mobile",
-         }
-    },
-	"font_sizes": [
+    "font_sizes": [
         62.5,
         75.89,
         93.75
     ],
     "customurlscheme": "moodlemobile",
-    "siteurl": "https://learn.sun.ac.za",
-    "sitename": "SUNLearn",
-    "multisitesdisplay": "",
+    "siteurl": 	[
+
+    {"name": "SUNLearn", "url": "https:\/\/learn.sun.ac.za"},
+
+    {"name": "StudentFeedback", "url": "https:\/\/studentfeedback.sun.ac.za"},
+
+				],
+
+    "sitename": "",
+    "multisitesdisplay": "buttons",
     "skipssoconfirmation": false,
     "forcedefaultlanguage": false,
-    "privacypolicy": "http://www.sun.ac.za/english/Documents/Privacy%20Notices/170314_Privacy%20Notice%20template_Maties.pdf",
-    "notificoncolor": "#f98012",
+    "privacypolicy": "http:\/\/www.sun.ac.za\/english\/Documents\/Privacy%20Notices\/170314_Privacy%20Notice%20template_Maties.pdf",
+    "notificoncolor": "#60223b",
     "statusbarbg": false,
     "statusbarlighttext": false,
-    "statusbarbgios": "#f98012",
+    "statusbarbgios": "#60223b",
     "statusbarlighttextios": true,
-    "statusbarbgandroid": "#df7310",
+    "statusbarbgandroid": "#60223b",
     "statusbarlighttextandroid": true,
-    "statusbarbgremotetheme": "#000000",
+    "statusbarbgremotetheme": "#FFFFFF",
     "statusbarlighttextremotetheme": true,
-    "enableanalytics": false
+    "enableanalytics": false,
+    "forceColorScheme": ""
 }
